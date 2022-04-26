@@ -51,15 +51,17 @@ const chartData = {
 function Dataflow() {
     return (
         <div className="dashboard-card">
-            <div className="dashboard-card-header">
-                <BsBarChart size={24} />
-                <h2 className="text-l font-medium">Data Flow</h2>
-            </div>
-            <div className="dashboard-card-content">
-                <Bar options={options} data={chartData} />
-            </div>
-            <div className="dashboard-card-footer items-center">
-                <button type="button" className="button-full">View Statistics</button>
+            <div className="dashboard-card-inner">
+                <div className="dashboard-card-header">
+                    <BsBarChart size={24} />
+                    <h2 className="text-l font-medium">Data Flow</h2>
+                </div>
+                <div className="dashboard-card-content">
+                    <Bar options={options} data={chartData} />
+                </div>
+                <div className="dashboard-card-footer items-center">
+                    <button type="button" className="button-full">View Statistics</button>
+                </div>
             </div>
         </div>
     );

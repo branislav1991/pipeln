@@ -34,11 +34,15 @@
   }
 
   .content-main {
-    @apply columns-md gap-4 space-y-4 p-6 bg-white;
+    @apply columns-md p-6 bg-white;
   }
 
   .dashboard-card {
-    @apply break-inside-avoid-column bg-white border border-gray-100 shadow-lg rounded-lg overflow-hidden h-fit;
+    @apply bg-transparent break-inside-avoid p-2;
+  }
+
+  .dashboard-card-inner {
+    @apply bg-white border border-gray-100 shadow-md rounded-md;
   }
 
   .dashboard-card-header {
