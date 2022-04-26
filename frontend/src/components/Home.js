@@ -17,7 +17,7 @@ function Home() {
     return (
         <div className="content">
             <div className="content-header-wrapper">
-                <h1 className="text-xl font-medium">Dashboard</h1>
+                <h1 className="content-header-left">Dashboard</h1>
                 <HeaderRight />
             </div>
             <div className="content-main">

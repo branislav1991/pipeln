@@ -12,7 +12,7 @@ function Documentation() {
             <div className="dashboard-card-inner">
                 <div className="dashboard-card-header">
                     <BsEasel size={24} />
-                    <h2 className="text-l font-medium">Documentation</h2>
+                    <h2>Documentation</h2>
                 </div>
                 <div className="dashboard-card-content">
                     Error 1

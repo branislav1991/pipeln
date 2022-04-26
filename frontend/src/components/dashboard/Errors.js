@@ -12,7 +12,7 @@ function Errors() {
             <div className="dashboard-card-inner">
                 <div className="dashboard-card-header">
                     <BsBug size={24} />
-                    <h2 className="text-l font-medium">Error Log</h2>
+                    <h2>Error Log</h2>
                 </div>
                 <div className="dashboard-card-content">
                     Error 1

@@ -33,6 +33,10 @@
     @apply w-full flex flex-wrap items-center justify-between p-3 bg-white drop-shadow-lg;
   }
 
+  .content-header-left {
+    @apply text-xl font-bold;
+  }
+
   .content-main {
     @apply columns-lg p-6 bg-white;
   }
@@ -46,11 +50,11 @@
   }
 
   .dashboard-card-header {
-    @apply flex px-4 py-3 items-center space-x-2 border-b border-gray-200;
+    @apply flex px-4 py-3 text-sm font-medium items-center space-x-2 border-b border-gray-200;
   }
 
   .dashboard-card-content {
-    @apply p-4 text-sm;
+    @apply p-4 text-xs;
   }
 
   .dashboard-card-footer {

@@ -12,11 +12,11 @@ function Endpoints() {
             <div className="dashboard-card-inner">
                 <div className="dashboard-card-header">
                     <BsPlug size={24} />
-                    <h2 className="text-l font-medium">Endpoints</h2>
+                    <h2>Endpoints</h2>
                 </div>
                 <div className="dashboard-card-content">
                     <table className="table-auto w-full text-left">
-                        <thead className="uppercase text-sm text-gray-700 border-b">
+                        <thead className="uppercase text-gray-700 border-b">
                             <tr>
                                 <th scope="col" className="px-6 py-3">Name</th>
                                 <th scope="col" className="px-6 py-3">IP Address</th>

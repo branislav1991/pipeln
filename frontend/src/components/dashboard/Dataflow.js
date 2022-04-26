@@ -54,7 +54,7 @@ function Dataflow() {
             <div className="dashboard-card-inner">
                 <div className="dashboard-card-header">
                     <BsBarChart size={24} />
-                    <h2 className="text-l font-medium">Data Flow</h2>
+                    <h2>Data Flow</h2>
                 </div>
                 <div className="dashboard-card-content">
                     <Bar options={options} data={chartData} />

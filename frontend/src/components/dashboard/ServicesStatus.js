@@ -12,7 +12,7 @@ function ServicesStatus() {
             <div className="dashboard-card-inner">
                 <div className="dashboard-card-header">
                     <BsCpu size={24} />
-                    <h2 className="text-l font-medium">Services Status</h2>
+                    <h2>Services Status</h2>
                 </div>
                 <div className="dashboard-card-content flex items-center space-x-3">
                     <BsCircleFill className="text-green-500" size={24} />
