@@ -34,7 +34,7 @@
   }
 
   .content-main {
-    @apply columns-md p-6 bg-white;
+    @apply columns-lg p-6 bg-white;
   }
 
   .dashboard-card {
@@ -50,7 +50,7 @@
   }
 
   .dashboard-card-content {
-    @apply p-4;
+    @apply p-4 text-sm;
   }
 
   .dashboard-card-footer {

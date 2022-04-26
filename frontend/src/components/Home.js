@@ -7,6 +7,7 @@
 
 import Dataflow from "./dashboard/Dataflow";
 import Documentation from "./dashboard/Documentation";
+import Endpoints from "./dashboard/Endpoints";
 import Errors from "./dashboard/Errors";
 import Projects from "./dashboard/Projects";
 import ServicesStatus from "./dashboard/ServicesStatus";
@@ -23,6 +24,7 @@ function Home() {
                 <ServicesStatus />
                 <Projects />
                 <Dataflow />
+                <Endpoints />
                 <Errors />
                 <Documentation />
             </div>
