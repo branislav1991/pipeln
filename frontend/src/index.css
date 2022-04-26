@@ -1,0 +1,66 @@
+/* Copyright (c) 2022 Branislav Hollaender. All rights reserved. */
+
+@import-normalize;
+@tailwind base;
+@tailwind components;
+
+@layer components {
+  .sidebar-item {
+    @apply flex mx-6 text-white hover:text-blue-300 ease-linear transition-all items-center;
+  }
+
+  .sidebar-icon-wrapper {
+    @apply w-7 h-7 font-medium;
+  }
+
+  .sidebar-icon {
+    @apply w-full h-full;
+  }
+
+  .sidebar-text {
+    @apply ml-4 flex-grow text-base font-medium;
+  }
+
+  .sidebar-spacer {
+    @apply bg-gray-800 border border-gray-800 rounded-full;
+  }
+
+  .content {
+    @apply flex flex-col grow;
+  }
+
+  .content-header-wrapper {
+    @apply w-full flex flex-wrap items-center justify-between p-3 bg-white drop-shadow-lg;
+  }
+
+  .content-main {
+    @apply columns-md gap-4 space-y-4 p-6 bg-white;
+  }
+
+  .dashboard-card {
+    @apply break-inside-avoid-column bg-white border border-gray-100 shadow-lg rounded-lg overflow-hidden h-fit;
+  }
+
+  .dashboard-card-header {
+    @apply flex px-4 py-3 items-center space-x-2 border-b border-gray-200;
+  }
+
+  .dashboard-card-content {
+    @apply p-4;
+  }
+
+  .dashboard-card-footer {
+    @apply flex px-4 py-3 items-center space-x-2 border-t border-gray-200;
+  }
+
+  .button-outline {
+    @apply px-6 py-2 border border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:shadow focus:shadow focus:outline-none focus:ring-0 active:shadow transition duration-150 ease-in-out;
+  }
+
+  .button-full {
+    @apply px-6 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out;
+  }
+}
+
+@tailwind utilities;
+

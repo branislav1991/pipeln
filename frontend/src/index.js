@@ -1,3 +1,5 @@
+/* Copyright (c) 2022 Branislav Hollaender. All rights reserved. */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
