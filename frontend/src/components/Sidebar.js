@@ -4,7 +4,7 @@
  * @fileoverview Sidebar with navigation
  */
 
-import { BsBarChart, BsClipboardCheck, BsFolder, BsGear, BsHouse, BsPlus } from 'react-icons/bs'
+import { BsBarChart, BsClipboardCheck, BsFolder, BsGear, BsHouse, BsPlug } from 'react-icons/bs'
 import { Link } from "react-router-dom";
 
 function SideBar() {
@@ -14,9 +14,9 @@ function SideBar() {
             <div className="flex flex-col grow space-y-4">
                 <SideBarItem icon={<BsHouse className="sidebar-icon" />} text="Home" link="home" />
                 <Spacer />
-                <SideBarItem icon={<BsPlus className="sidebar-icon" />} text="Create Contract" link="create-contract" />
                 <SideBarItem icon={<BsFolder className="sidebar-icon" />} text="Projects" />
-                <SideBarItem icon={<BsClipboardCheck className="sidebar-icon" />} text="Contracts" />
+                <SideBarItem icon={<BsClipboardCheck className="sidebar-icon" />} text="Contracts" link="contracts" />
+                <SideBarItem icon={<BsPlug className="sidebar-icon" />} text="Endpoints" />
                 <SideBarItem icon={<BsBarChart className="sidebar-icon" />} text="Statistics" />
             </div>
             <div className="flex flex-col space-y-2">

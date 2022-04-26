@@ -19,7 +19,7 @@ function HeaderRight() {
             <BsBell className="mr-4" size={22} />
             <div className="flex pl-4 border-l border-gray-300">
                 <div className="text-right">
-                    <div className="text-sm font-bold">John Doe</div>
+                    <div className="text-sm font-bold text-gray-700">John Doe</div>
                     <div className="text-xs text-gray-600">3.2 GB transferred</div>
                 </div>
                 <div className="rounded-full overflow-hidden ml-4 w-10 h-10">

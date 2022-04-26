@@ -30,11 +30,11 @@
   }
 
   .content-header-wrapper {
-    @apply w-full flex flex-wrap items-center justify-between p-3 bg-white drop-shadow-lg;
+    @apply w-full flex flex-wrap items-center justify-between p-3 bg-gray-100 border-b border-gray-300;
   }
 
   .content-header-left {
-    @apply text-2xl font-bold;
+    @apply text-2xl font-bold text-gray-700;
   }
 
   .content-main {
@@ -46,11 +46,11 @@
   }
 
   .dashboard-card-inner {
-    @apply bg-white border border-gray-100 shadow-md rounded-md;
+    @apply bg-white border border-gray-300 shadow-md rounded-md;
   }
 
   .dashboard-card-header {
-    @apply flex px-4 py-3 text-sm font-medium items-center space-x-2 border-b border-gray-200;
+    @apply flex px-4 py-3 text-sm font-medium items-center space-x-2 bg-gray-100 border-b border-gray-300;
   }
 
   .dashboard-card-content {
