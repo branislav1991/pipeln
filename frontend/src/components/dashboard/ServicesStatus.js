@@ -15,7 +15,7 @@ function ServicesStatus() {
                     <h2>Services Status</h2>
                 </div>
                 <div className="dashboard-card-content flex items-center space-x-3">
-                    <BsCircleFill className="text-green-500" size={24} />
+                    <BsCircleFill className="text-green-500" size={20} />
                     <p className="font-medium text-sm">All services operational</p>
                 </div>
             </div>

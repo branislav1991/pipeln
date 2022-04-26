@@ -29,7 +29,7 @@ function Projects() {
                         <tbody>
                             <tr className="border-b">
                                 <td className="px-6 py-3 font-medium text-gray-900">Internal</td>
-                                <td className="px-6 py-3"><BsCircleFill className="text-green-500" size={24} /></td>
+                                <td className="px-6 py-3"><BsCircleFill className="text-green-500" size={20} /></td>
                                 <td className="px-6 py-3">3</td>
                                 <td className="text-right">
                                     <button type="button" className="button-outline">View</button>
@@ -37,7 +37,7 @@ function Projects() {
                             </tr>
                             <tr className="border-b">
                                 <td className="px-6 py-3 font-medium text-gray-900">Stripe</td>
-                                <td className="px-6 py-3"><BsCircleFill className="text-red-500" size={24} /></td>
+                                <td className="px-6 py-3"><BsCircleFill className="text-red-500" size={20} /></td>
                                 <td className="px-6 py-3">1</td>
                                 <td className="text-right">
                                     <button type="button" className="button-outline">View</button>
@@ -45,7 +45,7 @@ function Projects() {
                             </tr>
                             <tr className="border-b">
                                 <td className="px-6 py-3 font-medium text-gray-900">Square</td>
-                                <td className="px-6 py-3"><BsCircleFill className="text-red-500" size={24} /></td>
+                                <td className="px-6 py-3"><BsCircleFill className="text-red-500" size={20} /></td>
                                 <td className="px-6 py-3">2</td>
                                 <td className="text-right">
                                     <button type="button" className="button-outline">View</button>
@@ -53,7 +53,7 @@ function Projects() {
                             </tr>
                             <tr className="border-b">
                                 <td className="px-6 py-3 font-medium text-gray-900">PayPal</td>
-                                <td className="px-6 py-3"><BsCircleFill className="text-green-500" size={24} /></td>
+                                <td className="px-6 py-3"><BsCircleFill className="text-green-500" size={20} /></td>
                                 <td className="px-6 py-3">5</td>
                                 <td className="text-right">
                                     <button type="button" className="button-outline">View</button>
