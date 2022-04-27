@@ -12,7 +12,7 @@ function Layout() {
     return (
         <div className="flex">
             <SideBar />
-            <div className="flex flex-wrap m-0 ml-64 h-screen w-screen space-x-2 space-y-2">
+            <div className="flex flex-wrap m-0 ml-64 h-screen w-screen space-x-2 space-y-2 text-gray-700">
                 <Outlet />
             </div>
         </div>

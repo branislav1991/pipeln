@@ -16,48 +16,33 @@ function Projects() {
                 </div>
                 <div className="dashboard-card-content">
                     <table className="table-auto w-full text-left">
-                        <thead className="uppercase text-gray-700 border-b">
+                        <thead className="uppercase border-b">
                             <tr>
                                 <th scope="col" className="px-6 py-3">Name</th>
                                 <th scope="col" className="px-6 py-3">Active</th>
                                 <th scope="col" className="px-6 py-3">Contracts</th>
-                                <th scope="col" className="px-6 py-3">
-                                    <span className="sr-only">View</span>
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr className="border-b">
-                                <td className="px-6 py-3 font-medium text-gray-900">Internal</td>
+                                <td className="px-6 py-3 font-medium">Internal</td>
                                 <td className="px-6 py-3"><BsCircleFill className="text-green-500" size={20} /></td>
                                 <td className="px-6 py-3">3</td>
-                                <td className="text-right">
-                                    <button type="button" className="button-outline">View</button>
-                                </td>
                             </tr>
                             <tr className="border-b">
-                                <td className="px-6 py-3 font-medium text-gray-900">Stripe</td>
+                                <td className="px-6 py-3 font-medium">Stripe</td>
                                 <td className="px-6 py-3"><BsCircleFill className="text-red-500" size={20} /></td>
                                 <td className="px-6 py-3">1</td>
-                                <td className="text-right">
-                                    <button type="button" className="button-outline">View</button>
-                                </td>
                             </tr>
                             <tr className="border-b">
-                                <td className="px-6 py-3 font-medium text-gray-900">Square</td>
+                                <td className="px-6 py-3 font-medium">Square</td>
                                 <td className="px-6 py-3"><BsCircleFill className="text-red-500" size={20} /></td>
                                 <td className="px-6 py-3">2</td>
-                                <td className="text-right">
-                                    <button type="button" className="button-outline">View</button>
-                                </td>
                             </tr>
                             <tr className="border-b">
-                                <td className="px-6 py-3 font-medium text-gray-900">PayPal</td>
+                                <td className="px-6 py-3 font-medium">PayPal</td>
                                 <td className="px-6 py-3"><BsCircleFill className="text-green-500" size={20} /></td>
                                 <td className="px-6 py-3">5</td>
-                                <td className="text-right">
-                                    <button type="button" className="button-outline">View</button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>

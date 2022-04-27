@@ -21,12 +21,14 @@ function Home() {
                 <HeaderRight />
             </div>
             <div className="content-main">
-                <ServicesStatus />
-                <Projects />
-                <Dataflow />
-                <Endpoints />
-                <Errors />
-                <Documentation />
+                <div className="dashboard-wrapper">
+                    <ServicesStatus />
+                    <Projects />
+                    <Dataflow />
+                    <Endpoints />
+                    <Errors />
+                    <Documentation />
+                </div>
             </div>
         </div>
     );

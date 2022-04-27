@@ -16,40 +16,28 @@ function Endpoints() {
                 </div>
                 <div className="dashboard-card-content">
                     <table className="table-auto w-full text-left">
-                        <thead className="uppercase text-gray-700 border-b">
+                        <thead className="uppercase border-b">
                             <tr>
                                 <th scope="col" className="px-6 py-3">Name</th>
                                 <th scope="col" className="px-6 py-3">IP Address</th>
                                 <th scope="col" className="px-6 py-3">Status</th>
-                                <th scope="col" className="px-6 py-3">
-                                    <span className="sr-only">View</span>
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr className="border-b">
-                                <td className="px-6 py-3 font-medium text-gray-900">Internal/AWS</td>
-                                <td className="px-6 py-3 text-gray-900">240.72.63.40</td>
+                                <td className="px-6 py-3 font-medium">Internal/AWS</td>
+                                <td className="px-6 py-3">240.72.63.40</td>
                                 <td className="px-6 py-3"><BsCircleFill className="text-green-500" size={20} /></td>
-                                <td className="text-right">
-                                    <button type="button" className="button-outline">View</button>
-                                </td>
                             </tr>
                             <tr className="border-b">
-                                <td className="px-6 py-3 font-medium text-gray-900">Internal/Azure</td>
-                                <td className="px-6 py-3 text-gray-900">55.132.137.22</td>
+                                <td className="px-6 py-3 font-medium">Internal/Azure</td>
+                                <td className="px-6 py-3">55.132.137.22</td>
                                 <td className="px-6 py-3"><BsCircleFill className="text-red-500" size={20} /></td>
-                                <td className="text-right">
-                                    <button type="button" className="button-outline">View</button>
-                                </td>
                             </tr>
                             <tr className="border-b">
-                                <td className="px-6 py-3 font-medium text-gray-900">PayPal</td>
-                                <td className="px-6 py-3 text-gray-900">81.67.187.128</td>
+                                <td className="px-6 py-3 font-medium">PayPal</td>
+                                <td className="px-6 py-3">81.67.187.128</td>
                                 <td className="px-6 py-3"><BsCircleFill className="text-green-500" size={20} /></td>
-                                <td className="text-right">
-                                    <button type="button" className="button-outline">View</button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
