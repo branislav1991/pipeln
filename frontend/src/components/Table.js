@@ -6,6 +6,7 @@
 
 import { useEffect, forwardRef, useRef } from "react";
 import { useTable, useSortBy, useRowSelect } from "react-table";
+import { gridColsClass } from "./utils";
 
 const IndeterminateCheckbox = forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -24,7 +25,7 @@ const IndeterminateCheckbox = forwardRef(
     }
 )
 
-function Table({ columns, data }) {
+function Table({ columns, data, setSelectedRows }) {
     // Use the state and functions returned from useTable to build your UI
     const {
         getTableProps,
@@ -59,9 +60,13 @@ function Table({ columns, data }) {
             }
         );
 
+    useEffect(() => {
+        setSelectedRows(selectedFlatRows);
+    }, [setSelectedRows, selectedFlatRows]);
+
     // Render the UI for your table
     return (
-        <div className={`large-table grid-cols-${columns.length + 1}`} {...getTableProps()}>
+        <div className={`large-table ${gridColsClass(columns.length + 1)}`} {...getTableProps()}>
             <div className="contents">
                 {headerGroups.map((headerGroup) => (
                     <div className="contents" {...headerGroup.getHeaderGroupProps()}>

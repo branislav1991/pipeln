@@ -4,18 +4,10 @@
  * @fileoverview Page for browsing contracts, including the contract graph
  */
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { BsArrowClockwise, BsPlus, BsTrash } from "react-icons/bs";
 import HeaderRight from "./HeaderRight";
 import Table from "./Table";
-
-const columns = [
-    { key: "id", name: "ID" },
-    { key: "name", name: "Name" },
-    { key: "type", name: "Type" },
-    { key: "endpoints", name: "Endpoints" },
-    { key: "status", name: "Status" },
-]
 
 const getData = () => [
     {
@@ -69,6 +61,7 @@ function Contracts() {
     );
 
     const data = useMemo(() => getData(), []);
+    const [selectedRows, setSelectedRows] = useState([])
 
     return (
         <div className="content">
@@ -80,10 +73,10 @@ function Contracts() {
                 <div className="submenu">
                     <button className="submenu-btn"><BsPlus size={20} /><span>Create</span></button>
                     <button className="submenu-btn"><BsArrowClockwise size={20} /><span>Refresh</span></button>
-                    <button className="submenu-btn"><BsTrash size={20} /><span>Delete</span></button>
+                    <button className="submenu-btn" disabled={selectedRows.length < 1}><BsTrash size={20} /><span>Delete</span></button>
                 </div>
 
-                <Table columns={columns} data={data} />
+                <Table columns={columns} data={data} setSelectedRows={setSelectedRows} />
             </div >
         </div >
     )

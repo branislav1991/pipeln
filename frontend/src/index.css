@@ -74,7 +74,7 @@
   }
 
   .submenu-btn {
-    @apply flex items-center space-x-1 px-3 py-1 border border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:shadow focus:shadow focus:outline-none focus:ring-0 active:shadow transition duration-150 ease-in-out;
+    @apply flex items-center space-x-1 px-3 py-1 border border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:shadow focus:shadow focus:outline-none focus:ring-0 active:shadow disabled:border-gray-400 disabled:text-gray-400 disabled:shadow-none transition duration-150 ease-in-out;
   }
 
   .large-table {
