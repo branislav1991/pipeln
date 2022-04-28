@@ -34,7 +34,6 @@ function Table({ columns, data, setSelectedRows }) {
         rows,
         prepareRow,
         selectedFlatRows,
-        state: { selectedRowIds },
     } =
         useTable({ columns, data, },
             useSortBy,
