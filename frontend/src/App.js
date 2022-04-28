@@ -1,10 +1,10 @@
 /* Copyright (c) 2022 Branislav Hollaender. All rights reserved. */
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Contracts from "./components/Contracts";
-import CreateContract from "./components/CreateContract";
-import Home from "./components/Home";
-import Layout from "./components/Layout";
+import Contracts from "./Contracts";
+import CreateContract from "./CreateContract";
+import Home from "./Home";
+import Layout from "./Layout";
 
 function App() {
   return (
