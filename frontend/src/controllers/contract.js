@@ -6,11 +6,11 @@
 
 /**
  * Get all contracts for a specified 
- * @returns 
+ * @returns Promise of fetched contracts
  */
 async function getContracts() {
     const response = await fetch("http://localhost:8000/contracts",
-        { "method": "GET" })
+        { "method": "GET" });
 
     if (!response.ok) {
         const message = `An error has occured: ${response.status}`;
@@ -19,30 +19,21 @@ async function getContracts() {
 
     const contracts = await response.json();
     return contracts;
-
-    // return [
-    //     {
-    //         id: 1,
-    //         name: "Stripe 1",
-    //         type: "verifyChecksum",
-    //         endpoints: 5,
-    //         status: "Not responding",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Stripe 2",
-    //         type: "verifyChecksum",
-    //         endpoints: 2,
-    //         status: "Active",
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "PayPal",
-    //         type: "verifyManually",
-    //         endpoints: 3,
-    //         status: "Active",
-    //     }
-    // ];
 }
 
-export { getContracts };
+/**
+ * Delete contracts with specific ids
+ */
+async function deleteContracts(ids) {
+    for (const id of ids) {
+        const response = await fetch(`http://localhost:8000/contracts/delete/${id.toString()}`,
+            { "method": "DELETE" });
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            throw new Error(message);
+        }
+    }
+}
+
+export { getContracts, deleteContracts };

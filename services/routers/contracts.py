@@ -1,7 +1,7 @@
 # Copyright (c) 2022 Branislav Hollaender. All rights reserved.
 
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from ..schemas.contract import Contract
 
@@ -31,3 +31,13 @@ fake_contracts_db = [{
 @router.get("/", response_model=List[Contract])
 async def read_contracts():
     return fake_contracts_db
+
+
+@router.delete("/delete/{contract_id}", status_code=204)
+async def delete_contract(contract_id: int):
+    try:
+        contract_idx = next(idx for idx, val in enumerate(fake_contracts_db)
+                            if val["id"] == contract_id)
+        del fake_contracts_db[contract_idx]
+    except StopIteration:
+        raise HTTPException(status_code=404, detail="Contract not found")

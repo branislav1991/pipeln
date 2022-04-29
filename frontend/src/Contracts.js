@@ -5,9 +5,8 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { getDatasetAtEvent } from "react-chartjs-2";
 import { BsArrowClockwise, BsPlus, BsTrash } from "react-icons/bs";
-import { getContracts } from "./controllers/contract";
+import { getContracts, deleteContracts } from "./controllers/contract";
 import HeaderRight from "./HeaderRight";
 import Table from "./Table";
 
@@ -39,9 +38,11 @@ function Contracts() {
     );
 
     const [loadingData, setLoadingData] = useState(true);
+    const [deletingData, setDeletingData] = useState(false);
     const [selectedRows, setSelectedRows] = useState([])
     const [data, setData] = useState([]);
 
+    // Fetching data at load time
     useEffect(() => {
         async function getData() {
             await getContracts()
@@ -52,9 +53,29 @@ function Contracts() {
                 .catch(error => console.error(error));
         }
 
-        // fetch data when loading page
-        getData();
-    }, []);
+        if (loadingData) {
+            getData();
+        }
+    }, [loadingData]);
+
+    // Deleting data
+    useEffect(() => {
+        async function deleteData(ids) {
+            await deleteContracts(ids)
+                .then(() => {
+                    setDeletingData(false);
+                    setData(data.filter(c => !ids.includes(c["id"])));
+                })
+                .catch(error => console.error(error));
+        }
+
+        if (deletingData) {
+            deleteData(selectedRows.map(
+                c => c.original["id"]
+            ));
+        }
+
+    }, [data, deletingData, selectedRows]);
 
     return (
         <div className="content">
@@ -65,8 +86,8 @@ function Contracts() {
             <div className="content-main">
                 <div className="submenu">
                     <button className="submenu-btn"><BsPlus size={20} /><span>Create</span></button>
-                    <button className="submenu-btn"><BsArrowClockwise size={20} /><span>Refresh</span></button>
-                    <button className="submenu-btn" disabled={selectedRows.length < 1}><BsTrash size={20} /><span>Delete</span></button>
+                    <button className="submenu-btn" onClick={() => setLoadingData(true)}><BsArrowClockwise size={20} /><span>Refresh</span></button>
+                    <button className="submenu-btn" disabled={selectedRows.length < 1} onClick={() => setDeletingData(true)}><BsTrash size={20} /><span>Delete</span></button>
                 </div>
 
                 {
