@@ -2,6 +2,10 @@
 
 This repository serves as the monorepo for the pipeln codebase.
 
+## Pipeln Architecture
+
+Pipeln is currently designed as a monolithic app with a SPA frontend (built using React) and a REST web service backend (build using FastAPI).
+
 ## Repository Structure
 
 The repository is structured according to the deployment units in the
@@ -11,9 +15,9 @@ deployment unit (with its own containers, tests, data storage etc.). Some subfol
 At the moment, the project consists of the following deployment units:
 
 - `frontend`: User facing frontend built with react.
-- `projects`: Project creation, update and deletion. 
-- `contract`: Contract creation, update and deletion.
-- `subcontract`: Subcontract creation, update and deletion.
+- `services`: All backend services.
+    - `routers`: API definitions.
+    - `schemas`: API schemas.
 
 ## Coding Style
 
