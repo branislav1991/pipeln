@@ -1,5 +1,9 @@
 /* Copyright (c) 2022 Branislav Hollaender. All rights reserved. */
 
+/**
+ * @fileoverview Main application page
+ */
+
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Contracts from "./Contracts";
 import CreateContract from "./CreateContract";
