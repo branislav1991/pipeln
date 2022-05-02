@@ -34,13 +34,18 @@ jobs:
 
     acquire-infrastructure:
         runs-on: ubuntu-latest
+        env:
+            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         defaults:
             run:
                 working-directory: deployment/terraform
         outputs:
             storage_account_name: ${{ steps.tfapply.outputs.storage_account_name  }}
         steps:
-            - uses: hashicorp/setup-terraform@v2
+            - uses: hashicorp/setup-terraform@v1
 
             - name: Terraform Format
               run: terraform fmt -check
@@ -49,11 +54,11 @@ jobs:
               run: terraform init
 
             - name: Terraform Validate
-              run: terraform validate -no-color
+              run: terraform validate
 
             - name: Terraform Apply
               id: tfapply
-              run: terraform apply -no-color
+              run: terraform apply --auto-approve
 
             - name: "Use Terraform Output"
               run: echo ${{ steps.tfapply.outputs.storage_account_name  }}
