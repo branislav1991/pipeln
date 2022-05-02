@@ -43,12 +43,14 @@ jobs:
       run:
         working-directory: deployment/terraform
     outputs:
-      storage_account_name: ${{ steps.tfapply.outputs.storage_account_name  }}
+      storage_account_name: $(terraform output storage_account_name)
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
 
       - name: Terraform Format
         run: terraform fmt -check
@@ -64,18 +66,31 @@ jobs:
         run: terraform apply --auto-approve
 
       - name: "Use Terraform Output"
-        run: echo ${{ steps.tfapply.outputs.storage_account_name  }}
+        run: echo $(terraform output storage_account_name)
 
-  deploy-website:
+  build-and-deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend/build
+        working-directory: frontend
 
     needs: [build-and-test, acquire-infrastructure]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Use Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          cache: "npm"
+          cache-dependency-path: "./frontend/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build --if-present
 
       - uses: azure/login@v1
         with:
