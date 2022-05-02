@@ -2,9 +2,9 @@ name: Build and Test Frontend
 
 on:
     push:
-        branches: [ master ]
+        branches: [master]
     pull_request:
-        branches: [ master ]
+        branches: [master]
 
 jobs:
     build-and-test:
@@ -19,9 +19,9 @@ jobs:
             - name: Use Node 18
               uses: actions/setup-node@v3
               with:
-                node-version: "18.x"
-                cache: 'npm'
-                cache-dependency-path: "./frontend/package-lock.json"
+                  node-version: "18.x"
+                  cache: "npm"
+                  cache-dependency-path: "./frontend/package-lock.json"
 
             - name: Install dependencies
               run: npm ci
@@ -31,4 +31,58 @@ jobs:
 
             - name: Test
               run: npm test
-    
+
+    acquire-infrastructure:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: deployment/terraform
+        outputs:
+            storage_account_name: ${{ steps.tfapply.outputs.storage_account_name  }}
+        steps:
+            - uses: hashicorp/setup-terraform@v2
+
+            - name: Terraform Format
+              run: terraform fmt -check
+
+            - name: Terraform Init
+              run: terraform init
+
+            - name: Terraform Validate
+              run: terraform validate -no-color
+
+            - name: Terraform Apply
+              id: tfapply
+              run: terraform apply -no-color
+
+            - name: "Use Terraform Output"
+              run: echo ${{ steps.tfapply.outputs.storage_account_name  }}
+
+    deploy-website:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: frontend/build
+
+        needs: [build-and-test, acquire-infrastructure]
+        steps:
+            - uses: azure/login@v1
+              with:
+                  creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            - name: Upload to blob storage
+              uses: azure/CLI@v1
+              with:
+                  inlineScript: |
+                      az storage blob upload-batch --account-name ${{ needs.acquire-infrastructure.outputs.storage_account_name }}  --auth-mode key -d '$web' -s .
+
+            # - name: Purge CDN endpoint
+            #   uses: azure/CLI@v1
+            #   with:
+            #       inlineScript: |
+            #           az cdn endpoint purge --content-paths  "/*" --profile-name "CDN_PROFILE_NAME" --name "CDN_ENDPOINT" --resource-group "RESOURCE_GROUP"
+
+            - name: logout
+              run: |
+                  az logout
+              if: always()
