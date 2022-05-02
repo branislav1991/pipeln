@@ -43,7 +43,7 @@ jobs:
       run:
         working-directory: deployment/terraform
     outputs:
-      storage_account_name: $(terraform output storage_account_name)
+      storage_account_name: ${{ steps.tfout.outputs.storage_account_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -66,7 +66,8 @@ jobs:
         run: terraform apply --auto-approve
 
       - name: "Use Terraform Output"
-        run: echo $(terraform output storage_account_name)
+        id: tfout
+        run: echo "::set-output storage_account_name::$(terraform output storage_account_name)"
 
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -100,7 +101,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name ${{ needs.acquire-infrastructure.outputs.storage_account_name }}  --auth-mode key -d '$web' -s .
+            az storage blob upload-batch --account-name ${{ needs.acquire-infrastructure.outputs.storage_account_name }}  --auth-mode key -d '$web' -s ./build
 
       # - name: Purge CDN endpoint
       #   uses: azure/CLI@v1
