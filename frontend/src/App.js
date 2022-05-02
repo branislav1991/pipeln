@@ -11,18 +11,18 @@ import Home from "./Home";
 import Layout from "./Layout";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="home" element={<Home />} />
-          <Route path="contracts" element={<Contracts />} />
-          <Route path="create-contract" element={<CreateContract />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="home" element={<Home />} />
+                    <Route path="contracts" element={<Contracts />} />
+                    <Route path="create-contract" element={<CreateContract />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
