@@ -136,6 +136,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - uses: azure/docker-login@v1
         with:
           login-server: ${{ needs.acquire-infrastructure.outputs.acr_login_server }}
