@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.87.0"
+      version = "3.4.0"
     }
   }
 
@@ -18,15 +18,18 @@ provider "azurerm" {
   features {}
 }
 
-variable "location" { # Which location are we deploying to
+# Which location are we deploying to
+variable "location" {
   type = string
 }
 
+# Resource group for the entire pipeln project
 resource "azurerm_resource_group" "rg" {
   name     = "pipeln-rg-${var.location}"
   location = var.location
 }
 
+# Static website resources
 resource "azurerm_storage_account" "static_storage" {
   name                      = "pipelnstaticweb"
   resource_group_name       = azurerm_resource_group.rg.name
@@ -43,4 +46,12 @@ resource "azurerm_storage_account" "static_storage" {
 
 output "storage_account_name" {
   value = azurerm_storage_account.static_storage.name
+}
+
+# Web services
+resource "azurerm_container_registry" "acr" {
+  name                = "pipelnservicecontainers"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Basic"
 }
