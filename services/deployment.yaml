@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pipeln-backend
+spec:
+  selector:
+    matchLabels:
+      app: pipeln-backend
+  template:
+    metadata:
+      labels:
+        app: pipeln-backend
+    spec:
+      containers:
+        - name: pipeln-backend
+          image: pipeln/backend:v1
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80

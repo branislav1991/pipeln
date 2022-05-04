@@ -16,8 +16,7 @@ At the moment, the project consists of the following deployment units:
 
 - `frontend`: User facing frontend built with react.
 - `services`: All backend services.
-    - `routers`: API definitions.
-    - `schemas`: API schemas.
+    - `backend`: The only service available right now. Runs on a Kubernetes cluster using a load balancer and responds to frontend requests. 
 
 ## Coding Style
 
@@ -26,3 +25,7 @@ Since the codebase consists of multiple languages, it is especially important to
 - **Python**: [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
 - **JavaScript**: [Google Javascript Style Guide](https://google.github.io/styleguide/jsguide.html)
 - **C++**: [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
+
+## Naming of Docker images
+
+Docker images should have the prefix `pipeln/` and the tag `v<version>` depending on the version of the image. Latest tag is not used.
