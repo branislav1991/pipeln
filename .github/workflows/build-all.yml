@@ -148,7 +148,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build ./backend -t ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }}
+          docker build -t ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }} ./backend
           docker push ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }}
 
       - name: logout
