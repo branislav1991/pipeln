@@ -1,50 +1,50 @@
-name: fastapi
+name: services
 channels:
-  - conda-forge
   - defaults
 dependencies:
-  - bzip2=1.0.8=h8ffe710_4
-  - ca-certificates=2021.10.8=h5b45459_0
-  - flake8=4.0.1=pyhd8ed1ab_2
-  - importlib-metadata=4.11.3=py310h5588dad_1
-  - libffi=3.4.2=h8ffe710_5
-  - libzlib=1.2.11=h8ffe710_1014
-  - mccabe=0.6.1=py_1
-  - openssl=3.0.2=h8ffe710_1
-  - pip=22.0.4=pyhd8ed1ab_0
-  - pycodestyle=2.8.0=pyhd8ed1ab_0
-  - pyflakes=2.4.0=pyhd8ed1ab_0
-  - python=3.10.4=hcf16a7b_0_cpython
-  - python_abi=3.10=2_cp310
-  - setuptools=62.1.0=py310h5588dad_0
-  - sqlite=3.38.3=h8ffe710_0
-  - tk=8.6.12=h8ffe710_0
-  - tzdata=2022a=h191b570_0
-  - ucrt=10.0.20348.0=h57928b3_0
-  - vc=14.2=hb210afc_6
-  - vs2015_runtime=14.29.30037=h902a5da_6
-  - wheel=0.37.1=pyhd8ed1ab_0
-  - xz=5.2.5=h62dcd97_1
-  - yapf=0.32.0=pyhd8ed1ab_0
-  - zipp=3.8.0=pyhd8ed1ab_0
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=4.5=1_gnu
+  - bzip2=1.0.8=h7b6447c_0
+  - ca-certificates=2022.4.26=h06a4308_0
+  - certifi=2020.6.20=pyhd3eb1b0_3
+  - ld_impl_linux-64=2.35.1=h7274673_9
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=9.3.0=h5101ec6_17
+  - libgomp=9.3.0=h5101ec6_17
+  - libstdcxx-ng=9.3.0=hd4cf53a_17
+  - libuuid=1.0.3=h7f8727e_2
+  - ncurses=6.3=h7f8727e_2
+  - openssl=1.1.1n=h7f8727e_0
+  - pip=21.2.4=py310h06a4308_0
+  - python=3.10.4=h12debd9_0
+  - readline=8.1.2=h7f8727e_1
+  - setuptools=61.2.0=py310h06a4308_0
+  - sqlite=3.38.2=hc218d9a_0
+  - tk=8.6.11=h1ccaba5_0
+  - tzdata=2022a=hda174b7_0
+  - wheel=0.37.1=pyhd3eb1b0_0
+  - xz=5.2.5=h7f8727e_1
+  - zlib=1.2.12=h7f8727e_2
   - pip:
     - anyio==3.5.0
-    - asgiref==3.5.0
+    - asgiref==3.5.1
     - click==8.1.3
-    - colorama==0.4.4
     - fastapi==0.75.2
+    - flake8==4.0.1
     - h11==0.13.0
     - httptools==0.4.0
     - idna==3.3
+    - mccabe==0.6.1
+    - pycodestyle==2.8.0
     - pydantic==1.9.0
+    - pyflakes==2.4.0
     - python-dotenv==0.20.0
-    - python-multipart==0.0.5
     - pyyaml==6.0
-    - six==1.16.0
     - sniffio==1.2.0
     - starlette==0.17.1
     - typing-extensions==4.2.0
     - uvicorn==0.17.6
+    - uvloop==0.16.0
     - watchgod==0.8.2
     - websockets==10.3
-prefix: C:\Users\brani\anaconda3\envs\fastapi
+prefix: /home/branislav/miniconda3/envs/services
