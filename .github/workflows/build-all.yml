@@ -1,4 +1,4 @@
-name: Build and Test Frontend
+name: Build and Test Pipeln
 
 on:
   push:
@@ -7,7 +7,55 @@ on:
     branches: [master]
 
 jobs:
-  build-and-test:
+  acquire-infrastructure:
+    runs-on: ubuntu-latest
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    defaults:
+      run:
+        working-directory: deployment/terraform
+    outputs:
+      storage_account_name: ${{ steps.tfout_san.outputs.storage_account_name }}
+      acr_login_server: ${{ steps.tfout_als.outputs.acr_login_server }}
+      acr_login_username: ${{ steps.tfout_alu.outputs.acr_login_username }}
+      acr_login_password: ${{ steps.tfout_alp.outputs.acr_login_password }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Apply
+        id: tfapply
+        run: terraform apply --auto-approve
+
+      - id: tfout_san
+        run: echo "::set-output name=storage_account_name::$(terraform output storage_account_name)"
+
+      - id: tfout_als
+        run: echo "::set-output name=acr_login_server::$(terraform output acr_login_server)"
+
+      - id: tfout_alu
+        run: echo "::set-output name=acr_login_username::$(terraform output acr_login_username)"
+
+      - id: tfout_alp
+        run: echo "::set-output name=acr_login_password::$(terraform output acr_login_password)"
+
+  build-and-test-frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -32,50 +80,13 @@ jobs:
       - name: Test
         run: npm test
 
-  acquire-infrastructure:
-    runs-on: ubuntu-latest
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-    defaults:
-      run:
-        working-directory: deployment/terraform
-    outputs:
-      storage_account_name: ${{ steps.tfout.outputs.storage_account_name }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_wrapper: false
-
-      - name: Terraform Format
-        run: terraform fmt -check
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate
-
-      - name: Terraform Apply
-        id: tfapply
-        run: terraform apply --auto-approve
-
-      - name: "Use Terraform Output"
-        id: tfout
-        run: echo "::set-output name=storage_account_name::$(terraform output storage_account_name)"
-
-  build-and-deploy:
+  build-and-deploy-frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
 
-    needs: [build-and-test, acquire-infrastructure]
+    needs: [build-and-test-frontend, acquire-infrastructure]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -108,6 +119,33 @@ jobs:
       #   with:
       #       inlineScript: |
       #           az cdn endpoint purge --content-paths  "/*" --profile-name "CDN_PROFILE_NAME" --name "CDN_ENDPOINT" --resource-group "RESOURCE_GROUP"
+
+      - name: logout
+        run: |
+          az logout
+        if: always()
+
+  containerize-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services
+
+    needs: [acquire-infrastructure]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: azure/docker-login@v1
+        with:
+          login-server: ${{ needs.acquire-infrastructure.outputs.acr_login_server }}
+          username: ${{ needs.acquire-infrastructure.outputs.acr_login_username }}
+          password: ${{ needs.acquire-infrastructure.outputs.acr_login_password }}
+
+      - name: Build Docker Image
+        run: |
+          docker build . -t ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }}
+          docker push ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }}
 
       - name: logout
         run: |
