@@ -44,16 +44,16 @@ jobs:
         run: terraform apply --auto-approve
 
       - id: tfout_san
-        run: echo "::set-output name=storage_account_name::$(terraform output storage_account_name)"
+        run: echo "::set-output name=storage_account_name::$(terraform output -raw storage_account_name)"
 
       - id: tfout_als
-        run: echo "::set-output name=acr_login_server::$(terraform output acr_login_server)"
+        run: echo "::set-output name=acr_login_server::$(terraform output -raw acr_login_server)"
 
       - id: tfout_alu
-        run: echo "::set-output name=acr_login_username::$(terraform output acr_login_username)"
+        run: echo "::set-output name=acr_login_username::$(terraform output -raw acr_login_username)"
 
       - id: tfout_alp
-        run: echo "::set-output name=acr_login_password::$(terraform output acr_login_password)"
+        run: echo "::set-output name=acr_login_password::$(terraform output -raw acr_login_password)"
 
   build-and-test-frontend:
     runs-on: ubuntu-latest
@@ -146,8 +146,3 @@ jobs:
         run: |
           docker build -t pipelnservicecontainers.azurecr.io/services:${{ github.sha }} ./backend
           docker push pipelnservicecontainers.azurecr.io/services:${{ github.sha }}
-
-      - name: logout
-        run: |
-          az logout
-        if: always()
