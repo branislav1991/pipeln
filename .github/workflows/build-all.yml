@@ -83,7 +83,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build --if-present
+        run: npm run build
 
       - name: Test
         run: npm test
@@ -110,7 +110,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build --if-present
+        run: npm run build
 
       - uses: azure/login@v1
         with:
@@ -120,7 +120,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name ${{ needs.acquire-infrastructure.outputs.storage_account_name }}  --auth-mode key -d '$web' -s $GITHUB_WORKSPACE/frontend/build
+            az storage blob upload-batch --account-name ${{ needs.acquire-infrastructure.outputs.storage_account_name }}  --auth-mode key --overwrite true -d '$web' -s $GITHUB_WORKSPACE/frontend/build
 
       # - name: Purge CDN endpoint
       #   uses: azure/CLI@v1
