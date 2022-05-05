@@ -138,11 +138,11 @@ jobs:
 
       - uses: azure/docker-login@v1
         with:
-          login-server: pipelnservicecontainers.azurecr.io
+          login-server: ${{ needs.acquire-infrastructure.outputs.acr_login_server }}
           username: ${{ needs.acquire-infrastructure.outputs.acr_login_username }}
           password: ${{ needs.acquire-infrastructure.outputs.acr_login_password }}
 
       - name: Build Docker Image
         run: |
-          docker build -t pipelnservicecontainers.azurecr.io/services:${{ github.sha }} ./backend
-          docker push pipelnservicecontainers.azurecr.io/services:${{ github.sha }}
+          docker build -t ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }} ./backend
+          docker push ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }}
