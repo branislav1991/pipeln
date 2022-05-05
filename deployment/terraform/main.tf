@@ -29,6 +29,10 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
+output "resource_group_name" {
+  value = azurerm_resource_group.rg.name
+}
+
 # Static website resources
 resource "azurerm_storage_account" "static_storage" {
   name                      = "pipelnstaticweb"
@@ -77,20 +81,28 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = "pipeln-k8s"
 
+  # used to group all the internal objects of this cluster
+  node_resource_group = "pipelnservicecluster-rg-node"
+
   default_node_pool {
     name       = "default"
     node_count = 1
     vm_size    = "Standard_D2_v2"
   }
 
+  # Azure will assign the id automatically
   identity {
     type = "SystemAssigned"
   }
 }
 
+output "aks_cluster_name" {
+  value = azurerm_kubernetes_cluster.aks.name
+}
+
 resource "azurerm_role_assignment" "ara" {
-  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
-  role_definition_name             = "AcrPull"
   scope                            = azurerm_container_registry.acr.id
+  role_definition_name             = "AcrPull"
+  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
   skip_service_principal_aad_check = true
 }

@@ -19,9 +19,11 @@ jobs:
         working-directory: deployment/terraform
     outputs:
       storage_account_name: ${{ steps.tfout_san.outputs.storage_account_name }}
+      resource_group_name: ${{ steps.tfout_rgn.outputs.resource_group_name }}
       acr_login_server: ${{ steps.tfout_als.outputs.acr_login_server }}
       acr_login_username: ${{ steps.tfout_alu.outputs.acr_login_username }}
       acr_login_password: ${{ steps.tfout_alp.outputs.acr_login_password }}
+      aks_cluster_name: ${{ steps.tfout_acn.outputs.aks_cluster_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -43,6 +45,9 @@ jobs:
         id: tfapply
         run: terraform apply --auto-approve
 
+      - id: tfout_rgn
+        run: echo "::set-output name=resource_group_name::$(terraform output -raw resource_group_name)"
+
       - id: tfout_san
         run: echo "::set-output name=storage_account_name::$(terraform output -raw storage_account_name)"
 
@@ -54,6 +59,9 @@ jobs:
 
       - id: tfout_alp
         run: echo "::set-output name=acr_login_password::$(terraform output -raw acr_login_password)"
+
+      - id: tfout_acn
+        run: echo "::set-output name=aks_cluster_name::$(terraform output -raw aks_cluster_name)"
 
   build-and-test-frontend:
     runs-on: ubuntu-latest
@@ -153,8 +161,8 @@ jobs:
         uses: azure/aks-set-context@v1
         with:
           creds: "${{ secrets.AZURE_CREDENTIALS }}"
-          cluster-name: ${{ env.CLUSTER_NAME }}
-          resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+          cluster-name: ${{ needs.acquire-infrastructure.outputs.aks_cluster_name }}
+          resource-group: ${{ needs.acquire-infrastructure.outputs.resource_group_name }}
 
       - name: Deploy to AKS
         uses: azure/k8s-deploy@v1
