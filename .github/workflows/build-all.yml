@@ -125,7 +125,9 @@ jobs:
           az logout
         if: always()
 
-  containerize-backend:
+  # TODO: Add job to test backend
+
+  build-deploy-backend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -146,3 +148,19 @@ jobs:
         run: |
           docker build -t ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }} ./backend
           docker push ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }}
+
+      - name: Set target AKS cluster
+        uses: azure/aks-set-context@v1
+        with:
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+          cluster-name: ${{ env.CLUSTER_NAME }}
+          resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+
+      - name: Deploy to AKS
+        uses: azure/k8s-deploy@v1
+        with:
+          manifests: |
+            ${{ github.workspace }}/services/deployment.yaml
+            ${{ github.workspace }}/services/service.yaml
+          images: |
+            ${{ needs.acquire-infrastructure.outputs.acr_login_server }}/services:${{ github.sha }}
