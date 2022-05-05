@@ -9,7 +9,7 @@
  * @returns Promise of fetched contracts
  */
 async function getContracts() {
-    const response = await fetch("http://localhost:8000/contracts",
+    const response = await fetch("http://pipelnservices.westeurope.cloudapp.azure.com/contracts",
         { "method": "GET" });
 
     if (!response.ok) {
@@ -26,7 +26,7 @@ async function getContracts() {
  */
 async function deleteContracts(ids) {
     for (const id of ids) {
-        const response = await fetch(`http://localhost:8000/contracts/delete/${id.toString()}`,
+        const response = await fetch(`http://pipelnservices.westeurope.cloudapp.azure.com/contracts/delete/${id.toString()}`,
             { "method": "DELETE" });
 
         if (!response.ok) {
