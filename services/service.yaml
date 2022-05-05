@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pipeln-backend
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: pipelnservices
 spec:
   selector:
     app: pipeln-backend
