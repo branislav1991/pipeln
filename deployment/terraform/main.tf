@@ -319,6 +319,19 @@ output "acr_login_password" {
   sensitive = true
 }
 
+resource "azurerm_virtual_network" "aks" {
+  name                = "aks-vnet"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  address_space       = ["10.0.0.0/16"]
+}
+resource "azurerm_subnet" "aks" {
+  name                 = "aks-subnet"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.aks.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "pipelnservicecluster"
   location            = azurerm_resource_group.rg.location
@@ -329,9 +342,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   node_resource_group = "pipelnservicecluster-rg-node"
 
   default_node_pool {
-    name       = "default"
-    node_count = 1
-    vm_size    = "Standard_D2_v2"
+    name           = "default"
+    node_count     = 1
+    vm_size        = "Standard_D2_v2"
+    vnet_subnet_id = azurerm_subnet.aks.id
   }
 
   # Azure will assign the id automatically
@@ -340,14 +354,26 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   ingress_application_gateway {
-    # gateway_name = "pipelnservicecluster-AGIC"
     gateway_id = azurerm_application_gateway.appgw.id
-    # subnet_cidr  = "10.225.0.0/16"
   }
 }
 
 output "aks_cluster_name" {
   value = azurerm_kubernetes_cluster.aks.name
+}
+
+resource "azurerm_virtual_network_peering" "gwtoaks" {
+  name                      = "gwtoaks"
+  resource_group_name       = azurerm_resource_group.rg.name
+  virtual_network_name      = azurerm_virtual_network.gwvnet.name
+  remote_virtual_network_id = azurerm_virtual_network.aks.id
+}
+
+resource "azurerm_virtual_network_peering" "akstogw" {
+  name                      = "gwtoaks"
+  resource_group_name       = azurerm_resource_group.rg.name
+  virtual_network_name      = azurerm_virtual_network.aks.name
+  remote_virtual_network_id = azurerm_virtual_network.gwvnet.id
 }
 
 resource "azurerm_role_assignment" "ara" {
