@@ -29,6 +29,7 @@ metadata:
   name: pipeln-backend
   annotations:
     kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io: https
     # service.beta.kubernetes.io/azure-dns-label-name: pipelnservices
 spec:
   tls:
