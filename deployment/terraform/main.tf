@@ -202,24 +202,34 @@ resource "azurerm_key_vault_certificate" "tlscert" {
 }
 
 # Application gateway
-resource "azurerm_virtual_network" "gwvnet" {
-  name                = "pipelngatewayvnet"
+resource "azurerm_virtual_network" "vnet" {
+  name                = "pipelnvnet"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  address_space       = ["11.0.0.0/8"]
+  address_space       = ["192.168.0.0/16"]
+
+  subnet {
+    name           = "pipelnakssubnet"
+    address_prefix = "192.168.0.0/24"
+  }
+
+  subnet {
+    name           = "pipelngwsubnet"
+    address_prefix = "192.168.1.0/24"
+  }
 }
 
-resource "azurerm_subnet" "frontend" {
-  name                 = "pipelngatewayfrontsubnet"
+resource "azurerm_subnet" "kubesubnet" {
+  name                 = "kubesubnet"
   resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.gwvnet.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["11.0.0.0/16"]
 }
 
-resource "azurerm_subnet" "backend" {
-  name                 = "pipelngatewaybacksubnet"
+resource "azurerm_subnet" "appgwsubnet" {
+  name                 = "appgwsubnet"
   resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.gwvnet.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["11.1.0.0/16"]
 }
 
@@ -254,11 +264,16 @@ resource "azurerm_application_gateway" "appgw" {
 
   gateway_ip_configuration {
     name      = "pipeln-gateway-ip-configuration"
-    subnet_id = azurerm_subnet.frontend.id
+    subnet_id = azurerm_subnet.appgwsubnet.id
   }
 
   frontend_port {
     name = "pipeln-feport"
+    port = 80
+  }
+
+  frontend_port {
+    name = "httpsPort"
     port = 443
   }
 
@@ -274,16 +289,14 @@ resource "azurerm_application_gateway" "appgw" {
   backend_http_settings {
     name                  = "pipeln-httpsettings"
     cookie_based_affinity = "Disabled"
-    path                  = "/"
     port                  = 80
     protocol              = "Http"
-    request_timeout       = 60
+    request_timeout       = 1
   }
 
   http_listener {
     name                           = "pipeln-http-listener"
-    protocol                       = "Https"
-    ssl_certificate_name           = "appgw-listener-cert"
+    protocol                       = "Http"
     frontend_port_name             = "pipeln-feport"
     frontend_ip_configuration_name = "pipeln-feip"
   }
@@ -319,19 +332,6 @@ output "acr_login_password" {
   sensitive = true
 }
 
-resource "azurerm_virtual_network" "aks" {
-  name                = "aks-vnet"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  address_space       = ["10.0.0.0/8"]
-}
-resource "azurerm_subnet" "aks" {
-  name                 = "aks-subnet"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.aks.name
-  address_prefixes     = ["10.240.0.0/16"]
-}
-
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "pipelnservicecluster"
   location            = azurerm_resource_group.rg.location
@@ -345,7 +345,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name           = "default"
     node_count     = 1
     vm_size        = "Standard_D2_v2"
-    vnet_subnet_id = azurerm_subnet.aks.id
+    vnet_subnet_id = azurerm_subnet.kubesubnet.id
   }
 
   # Azure will assign the id automatically
@@ -362,23 +362,16 @@ output "aks_cluster_name" {
   value = azurerm_kubernetes_cluster.aks.name
 }
 
-resource "azurerm_virtual_network_peering" "gwtoaks" {
-  name                      = "gwtoaks"
-  resource_group_name       = azurerm_resource_group.rg.name
-  virtual_network_name      = azurerm_virtual_network.gwvnet.name
-  remote_virtual_network_id = azurerm_virtual_network.aks.id
-}
-
-resource "azurerm_virtual_network_peering" "akstogw" {
-  name                      = "gwtoaks"
-  resource_group_name       = azurerm_resource_group.rg.name
-  virtual_network_name      = azurerm_virtual_network.aks.name
-  remote_virtual_network_id = azurerm_virtual_network.gwvnet.id
-}
-
 resource "azurerm_role_assignment" "ara" {
   scope                            = azurerm_container_registry.acr.id
   role_definition_name             = "AcrPull"
   principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+  skip_service_principal_aad_check = true
+}
+
+resource "azurerm_role_assignment" "kubetogw" {
+  scope                            = azurerm_application_gateway.appgw.id
+  role_definition_name             = "Managed Identity Operator"
+  principal_id                     = azurerm_kubernetes_cluster.aks.id
   skip_service_principal_aad_check = true
 }
