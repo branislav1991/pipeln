@@ -24,3 +24,6 @@ __pycache__
 # Terraform
 .terraform
 .terraform*
+
+# Certificates; only in local repo
+certificates
