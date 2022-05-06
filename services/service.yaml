@@ -2,12 +2,29 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pipeln-backend
-  annotations:
-    service.beta.kubernetes.io/azure-dns-label-name: pipelnservices
 spec:
   selector:
     app: pipeln-backend
-  type: LoadBalancer
   ports:
     - port: 80
       targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pipeln-backend
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    # service.beta.kubernetes.io/azure-dns-label-name: pipelnservices
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: pipeln-backend
+                port:
+                  number: 80
+            pathType: Exact
