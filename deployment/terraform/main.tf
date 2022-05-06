@@ -207,30 +207,20 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   address_space       = ["192.168.0.0/16"]
-
-  subnet {
-    name           = "pipelnakssubnet"
-    address_prefix = "192.168.0.0/24"
-  }
-
-  subnet {
-    name           = "pipelngwsubnet"
-    address_prefix = "192.168.1.0/24"
-  }
 }
 
 resource "azurerm_subnet" "kubesubnet" {
   name                 = "kubesubnet"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["11.0.0.0/16"]
+  address_prefixes     = ["192.168.0.0/24"]
 }
 
 resource "azurerm_subnet" "appgwsubnet" {
   name                 = "appgwsubnet"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["11.1.0.0/16"]
+  address_prefixes     = ["192.168.1.0/24"]
 }
 
 resource "azurerm_public_ip" "ip" {
