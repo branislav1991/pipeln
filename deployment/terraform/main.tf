@@ -95,6 +95,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
   identity {
     type = "SystemAssigned"
   }
+
+  ingress_application_gateway {
+    gateway_name = "pipelnservicecluster-AGIC"
+    subnet_cidr  = "10.225.0.0/16"
+  }
 }
 
 output "aks_cluster_name" {
