@@ -362,6 +362,6 @@ resource "azurerm_role_assignment" "ara" {
 resource "azurerm_role_assignment" "kubetogw" {
   scope                            = azurerm_application_gateway.appgw.id
   role_definition_name             = "Managed Identity Operator"
-  principal_id                     = azurerm_kubernetes_cluster.aks.identity.principal_id
+  principal_id                     = azurerm_kubernetes_cluster.aks.identity[0].principal_id
   skip_service_principal_aad_check = true
 }
