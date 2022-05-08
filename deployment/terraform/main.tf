@@ -131,21 +131,16 @@ resource "azurerm_role_assignment" "ara" {
 
 provider "helm" {
   kubernetes {
-    host                   = azurerm_kubernetes_cluster.your_cluster.kube_config.0.host
-    client_key             = base64decode(azurerm_kubernetes_cluster.your_cluster.kube_config.0.client_key)
-    client_certificate     = base64decode(azurerm_kubernetes_cluster.your_cluster.kube_config.0.client_certificate)
-    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.your_cluster.kube_config.0.cluster_ca_certificate)
+    host                   = azurerm_kubernetes_cluster.aks.kube_config.0.host
+    client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_key)
+    client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate)
+    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
   }
-}
-
-data "helm_repository" "ingressnginx" {
-  name = "ingress-nginx"
-  url  = "https://kubernetes.github.io/ingress-nginx"
 }
 
 resource "helm_release" "nginx_ingress" {
   name       = "nginx_ingress"
-  repository = data.helm_repository.ingressnginx.metadata.0.name
+  repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx/ingress-nginx"
   namespace  = "ingress-basic"
 
