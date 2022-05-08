@@ -142,7 +142,6 @@ resource "helm_release" "nginx_ingress" {
   name       = "nginxingress"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
-  namespace  = "ingress-basic"
 
   set {
     name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/azure-load-balancer-health-probe-request-path"
