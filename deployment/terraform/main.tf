@@ -141,7 +141,7 @@ provider "helm" {
 resource "helm_release" "nginx_ingress" {
   name       = "nginx_ingress"
   repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx ingress-nginx"
+  chart      = "ingress-nginx"
   namespace  = "ingress-basic"
 
   set {
