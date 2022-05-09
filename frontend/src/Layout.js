@@ -10,11 +10,13 @@ import SideBar from './Sidebar';
 
 function Layout() {
     return (
-        <div className="flex">
+        <div className="flex flex-nowrap">
             <SideBar />
-            <div className="flex flex-wrap m-0 ml-64 h-screen w-screen space-x-2 space-y-2 text-gray-700">
-                <Outlet />
-            </div>
+            <main className="w-full ml-64 text-gray-600">
+                <div className="container mx-auto">
+                    <Outlet />
+                </div>
+            </main>
         </div>
     );
 }

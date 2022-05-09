@@ -5,11 +5,11 @@
  */
 
 /**
- * Get all contracts for a specified 
+ * Get all contracts for a specified user
  * @returns Promise of fetched contracts
  */
 async function getContracts() {
-    const response = await fetch("http://pipelnservices.westeurope.cloudapp.azure.com/contracts",
+    const response = await fetch("http://localhost:8000/contracts",
         { "method": "GET" });
 
     if (!response.ok) {
@@ -18,6 +18,10 @@ async function getContracts() {
     }
 
     const contracts = await response.json();
+    contracts.forEach(c => {
+        c["remoteEndpoint"] = c["endpoints"][0];
+        c["myEndpoint"] = c["endpoints"][1];
+    });
     return contracts;
 }
 
@@ -26,7 +30,7 @@ async function getContracts() {
  */
 async function deleteContracts(ids) {
     for (const id of ids) {
-        const response = await fetch(`http://pipelnservices.westeurope.cloudapp.azure.com/contracts/delete/${id.toString()}`,
+        const response = await fetch(`http://localhost:8000/contracts/delete/${id.toString()}`,
             { "method": "DELETE" });
 
         if (!response.ok) {
@@ -34,6 +38,10 @@ async function deleteContracts(ids) {
             throw new Error(message);
         }
     }
+}
+
+async function createContract(name, type,) {
+
 }
 
 export { getContracts, deleteContracts };

@@ -8,10 +8,6 @@ module.exports = {
     ],
     theme: {
         extend: {
-            colors: {
-                primary: "#191919",
-                secondary: "#5865f2",
-            },
             gridTemplateColumns: {
                 'auto-fit-500': 'repeat(auto-fit, minmax(500px, 1fr))',
                 'auto-fill-500': 'repeat(auto-fill, minmax(500px, 1fr))',

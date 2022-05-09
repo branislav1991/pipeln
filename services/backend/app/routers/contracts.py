@@ -11,25 +11,25 @@ fake_contracts_db = [{
     "id": 1,
     "name": "Stripe 1",
     "type": "verify_checksum",
-    "endpoints": 5,
+    "endpoints": [1, 2],
     "status": "not_responding",
 }, {
     "id": 2,
     "name": "Stripe 2",
     "type": "verify_checksum",
-    "endpoints": 2,
+    "endpoints": [3, 2],
     "status": "active",
 }, {
     "id": 3,
     "name": "PayPal",
     "type": "verify_manually",
-    "endpoints": 3,
+    "endpoints": [4, 6],
     "status": "active",
 }]
 
 
 @router.get("/", response_model=List[Contract])
-async def read_contracts():
+async def get_contracts():
     return fake_contracts_db
 
 
@@ -41,3 +41,8 @@ async def delete_contract(contract_id: int):
         del fake_contracts_db[contract_idx]
     except StopIteration:
         raise HTTPException(status_code=404, detail="Contract not found")
+
+
+@router.post("/create")
+async def create_contract():
+    pass

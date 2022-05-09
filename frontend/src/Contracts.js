@@ -6,7 +6,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { BsArrowClockwise, BsPlus, BsTrash } from "react-icons/bs";
-import { getContracts, deleteContracts } from "./controllers/contract";
+import { createContract, getContracts, deleteContracts } from "./controllers/contract";
+import { getEndpoint } from "./controllers/endpoint";
 import HeaderRight from "./HeaderRight";
 import Table from "./Table";
 
@@ -26,8 +27,12 @@ function Contracts() {
                 accessor: "type",
             },
             {
-                Header: "Endpoints",
-                accessor: "endpoints",
+                Header: "Remote Endpoint",
+                accessor: "remoteEndpoint",
+            },
+            {
+                Header: "My Endpoint",
+                accessor: "myEndpoint"
             },
             {
                 Header: "Status",
@@ -45,12 +50,35 @@ function Contracts() {
     // Fetching data at load time
     useEffect(() => {
         async function getData() {
-            await getContracts()
+            getContracts()
                 .then(contracts => {
-                    setData(contracts);
-                    setLoadingData(false);
-                })
-                .catch(error => console.error(error));
+                    const remoteEps = contracts.map(async c => {
+                        const remoteEp = await getEndpoint(c["remoteEndpoint"]);
+                        return { "endpoint": remoteEp["address"] };
+                    });
+
+                    const myEps = contracts.map(async c => {
+                        const myEp = await getEndpoint(c["myEndpoint"]);
+                        return { "endpoint": myEp["address"] };
+                    });
+
+                    Promise.allSettled(remoteEps)
+                        .then(endpoints => {
+                            endpoints.forEach((e, idx) => {
+                                contracts[idx]["remoteEndpoint"] = e["status"] === "fulfilled" ? e["value"]["endpoint"] : "<error>";
+                            });
+
+                            return Promise.allSettled(myEps);
+                        })
+                        .then(endpoints => {
+                            endpoints.forEach((e, idx) => {
+                                contracts[idx]["myEndpoint"] = e["status"] === "fulfilled" ? e["value"]["endpoint"] : "<error>";
+                            });
+
+                            setData(contracts);
+                            setLoadingData(false);
+                        });
+                });
         }
 
         if (loadingData) {
@@ -89,12 +117,13 @@ function Contracts() {
                     <button className="submenu-btn" onClick={() => setLoadingData(true)}><BsArrowClockwise size={20} /><span>Refresh</span></button>
                     <button className="submenu-btn" disabled={selectedRows.length < 1} onClick={() => setDeletingData(true)}><BsTrash size={20} /><span>Delete</span></button>
                 </div>
-
-                {
-                    loadingData ?
-                        (<p>Loading...</p>) :
-                        (<Table columns={columns} data={data} setSelectedRows={setSelectedRows} />)
-                }
+                <div className="subcontent">
+                    {
+                        loadingData ?
+                            (<p>Loading...</p>) :
+                            (<Table columns={columns} data={data} setSelectedRows={setSelectedRows} />)
+                    }
+                </div>
             </div >
         </div >
     )

@@ -9,20 +9,18 @@ import { Link } from "react-router-dom";
 
 function SideBar() {
     return (
-        <div className="fixed top-0 left-0 h-screen w-64 m-0 pt-32 pb-6
-                        flex flex-col bg-primary z-10">
-            <div className="flex flex-col grow space-y-4">
+        <aside className="fixed h-full top-0 left-0 w-64 m-0 pt-32 pb-6 flex flex-col bg-gray-200 z-10">
+            <div className="grow space-y-3">
                 <SideBarItem icon={<BsHouse className="sidebar-icon" />} text="Home" link="home" />
-                <Spacer />
                 <SideBarItem icon={<BsFolder className="sidebar-icon" />} text="Projects" />
                 <SideBarItem icon={<BsClipboardCheck className="sidebar-icon" />} text="Contracts" link="contracts" />
-                <SideBarItem icon={<BsPlug className="sidebar-icon" />} text="Endpoints" />
+                <SideBarItem icon={<BsPlug className="sidebar-icon" />} text="My Endpoints" />
                 <SideBarItem icon={<BsBarChart className="sidebar-icon" />} text="Statistics" />
             </div>
             <div className="flex flex-col space-y-2">
                 <SideBarItem icon={<BsGear className="sidebar-icon" />} text="Settings" />
             </div>
-        </div >
+        </aside >
     );
 }
 
@@ -37,12 +35,6 @@ function SideBarItem({ icon, text, link = "#" }) {
             </div>
         </Link>
     );
-}
-
-function Spacer() {
-    return (
-        <hr className="sidebar-spacer" />
-    )
 }
 
 export default SideBar;

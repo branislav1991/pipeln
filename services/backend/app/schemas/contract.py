@@ -18,5 +18,5 @@ class Contract(BaseModel):
     id: int
     name: str
     type: ContractType
-    endpoints: int
+    endpoints: list[int]
     status: ContractStatus

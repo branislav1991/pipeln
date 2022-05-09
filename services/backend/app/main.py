@@ -2,6 +2,7 @@ from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import contracts
+from .routers import endpoints
 
 app = FastAPI()
 
@@ -18,6 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(contracts.router)
+app.include_router(endpoints.router)
 
 
 @app.get("/")

@@ -6,11 +6,11 @@
 
 @layer components {
   .sidebar-item {
-    @apply flex mx-6 text-white hover:text-blue-300 ease-linear transition-all items-center;
+    @apply flex mx-6 p-2 rounded-md text-gray-600 hover:bg-blue-600 hover:text-white ease-linear duration-300 transition-all items-center;
   }
 
   .sidebar-icon-wrapper {
-    @apply w-7 h-7 font-medium;
+    @apply w-6 h-6 font-medium;
   }
 
   .sidebar-icon {
@@ -21,48 +21,40 @@
     @apply ml-4 flex-grow text-base font-medium;
   }
 
-  .sidebar-spacer {
-    @apply bg-gray-800 border border-gray-800 rounded-full;
-  }
-
   .content {
-    @apply flex flex-col grow;
+    @apply flex flex-col bg-gray-200 p-12 pl-0;
   }
 
   .content-header-wrapper {
-    @apply w-full flex flex-wrap items-center justify-between p-3 bg-gray-100 border-b border-gray-300;
+    @apply w-full flex flex-wrap items-center justify-between pb-6;
   }
 
   .content-header-left {
     @apply text-2xl font-bold;
   }
 
-  .content-main {
-    @apply p-6 bg-white;
-  }
-
   .dashboard-wrapper {
-    @apply columns-lg;
+    @apply grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2 gap-4;
   }
 
   .dashboard-card {
-    @apply bg-transparent break-inside-avoid p-2;
+    @apply bg-white border border-gray-300 shadow-md rounded-md overflow-hidden p-6;
   }
 
   .dashboard-card-inner {
-    @apply bg-white border border-gray-300 shadow-md rounded-md overflow-hidden;
+    @apply h-full flex flex-col;
   }
 
   .dashboard-card-header {
-    @apply flex px-4 py-3 text-sm font-medium items-center space-x-2 bg-gray-100 border-b border-gray-300;
+    @apply flex text-sm font-medium items-center space-x-2 mb-6;
   }
 
   .dashboard-card-content {
-    @apply p-4 text-xs;
+    @apply text-xs;
   }
 
   .dashboard-card-footer {
-    @apply flex px-4 py-3 items-center space-x-2 border-t border-gray-200;
+    @apply mt-auto flex items-center space-x-2 pt-6;
   }
 
   .button-full {
@@ -70,19 +62,23 @@
   }
 
   .submenu {
-    @apply mb-4 w-full flex items-center space-x-2 p-2 bg-gray-100 border border-gray-300 rounded-md overflow-hidden;
+    @apply mb-4 w-full flex items-center space-x-2 p-4 bg-white border border-gray-300 rounded-md shadow-md overflow-hidden;
   }
 
   .submenu-btn {
     @apply flex items-center space-x-1 px-3 py-1 border border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:shadow focus:shadow focus:outline-none focus:ring-0 active:shadow disabled:border-gray-400 disabled:text-gray-400 disabled:shadow-none transition duration-150 ease-in-out;
   }
 
+  .subcontent {
+    @apply p-4 bg-white border border-gray-300 rounded-md shadow-md text-sm overflow-hidden;
+  }
+
   .large-table {
-    @apply grid w-full bg-white border border-gray-300 rounded-md overflow-hidden;
+    @apply grid w-full;
   }
 
   .large-table-header-cell {
-    @apply py-1 px-2 text-left bg-gray-100 border-b border-gray-300;
+    @apply py-1 px-2 text-left font-medium border-b border-gray-300;
   }
 
   .large-table-cell {

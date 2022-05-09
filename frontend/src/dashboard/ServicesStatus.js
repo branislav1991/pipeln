@@ -8,7 +8,7 @@ import { BsCircleFill, BsCpu } from 'react-icons/bs'
 
 function ServicesStatus() {
     return (
-        <div className="dashboard-card">
+        <div className="dashboard-card col-span-full">
             <div className="dashboard-card-inner">
                 <div className="dashboard-card-header">
                     <BsCpu size={24} />
