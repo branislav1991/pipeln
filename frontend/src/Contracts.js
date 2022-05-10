@@ -115,7 +115,7 @@ function Contracts() {
                 <div className="submenu">
                     <button className="submenu-btn"><BsPlus size={20} /><span>Create</span></button>
                     <button className="submenu-btn" onClick={() => setLoadingData(true)}><BsArrowClockwise size={20} /><span>Refresh</span></button>
-                    <button className="submenu-btn" disabled={selectedRows.length < 1} onClick={() => setDeletingData(true)}><BsTrash size={20} /><span>Delete</span></button>
+                    <button className="submenu-btn" data-testid="delete-btn" disabled={selectedRows.length < 1} onClick={() => setDeletingData(true)}><BsTrash size={20} /><span>Delete</span></button>
                 </div>
                 <div className="subcontent">
                     {

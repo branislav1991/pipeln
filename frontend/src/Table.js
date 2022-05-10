@@ -19,7 +19,7 @@ const IndeterminateCheckbox = forwardRef(
 
         return (
             <>
-                <input type="checkbox" ref={resolvedRef} {...rest} />
+                <input type="checkbox" data-testid="table-checkbox" ref={resolvedRef} {...rest} />
             </>
         )
     }
