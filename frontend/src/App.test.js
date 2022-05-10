@@ -44,7 +44,7 @@ test("Clicking on contracts should navigate to contracts page", () => {
         contractsLink.dispatchEvent(new MouseEvent("click"));
     });
 
-    const contentWrapper = container.getElementsByClassName("content")[0]
+    const contentWrapper = container.getElementsByClassName("content")[0];
     const contractsTitle = within(contentWrapper).getByText("Contracts");
     expect(contractsTitle).toBeInTheDocument();
 });
