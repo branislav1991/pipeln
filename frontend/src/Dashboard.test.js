@@ -2,6 +2,7 @@
 
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import 'jest-canvas-mock';
 import Dashboard from './Dashboard';
 
 test("Dashboard should contain all the defined cards", () => {

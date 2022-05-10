@@ -14,7 +14,7 @@ function Endpoint() {
     let { id } = useParams();
 
     const [loadingData, setLoadingData] = useState(true);
-    const [endpoint, setEndpoint] = useState({ "id": id, "name": "", "type": "", "address": "" });
+    const [endpoint, setEndpoint] = useState({ "id": id, "type": "", "address": "" });
 
     useEffect(() => {
         async function getData() {
@@ -35,7 +35,7 @@ function Endpoint() {
     return (
         <div className="content">
             <div className="content-header-wrapper">
-                <h1 className="content-header-left">{endpoint["name"]}</h1>
+                <h1 className="content-header-left">Endpoint</h1>
                 <HeaderRight />
             </div>
             <div className="content-main">
@@ -49,7 +49,8 @@ function Endpoint() {
                             <p>Loading...</p> :
                             <div>
                                 <BsPlug />
-                                IP Address: {endpoint["address"]}
+                                <p>Type: {endpoint["type"]}</p>
+                                <p>IP Address: {endpoint["address"]}</p>
                             </div>
                     }
                 </div>
