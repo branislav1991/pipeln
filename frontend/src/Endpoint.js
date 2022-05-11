@@ -30,7 +30,7 @@ function Endpoint() {
         if (loadingData) {
             getData();
         }
-    }, [loadingData]);
+    }, [loadingData, id]);
 
     return (
         <div className="content">
