@@ -5,9 +5,9 @@
  */
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Contracts from "./Contracts";
-import Endpoint from "./Endpoint";
-import Dashboard from "./Dashboard";
+import Contracts from "./screens/Contracts";
+import Endpoint from "./screens/Endpoint";
+import Dashboard from "./screens/Dashboard";
 import Layout from "./Layout";
 
 export const AppRoutes = () => {

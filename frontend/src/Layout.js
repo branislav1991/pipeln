@@ -6,14 +6,16 @@
  */
 
 import { Outlet } from 'react-router-dom';
-import SideBar from './Sidebar';
+import SideBar from './components/Sidebar';
+import HeaderRight from "./components/HeaderRight";
 
 function Layout() {
     return (
         <div className="flex flex-nowrap">
             <SideBar />
             <main className="w-full ml-64 text-gray-600">
-                <div className="container mx-auto">
+                <div className="container mx-auto p-12 pt-6 pl-0">
+                    <HeaderRight />
                     <Outlet />
                 </div>
             </main>

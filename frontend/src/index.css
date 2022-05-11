@@ -5,38 +5,6 @@
 @tailwind components;
 
 @layer components {
-  .sidebar-item {
-    @apply flex mx-6 p-2 rounded-md text-gray-600 hover:bg-blue-600 hover:text-white ease-linear duration-300 transition-all items-center;
-  }
-
-  .sidebar-icon-wrapper {
-    @apply w-6 h-6 font-medium;
-  }
-
-  .sidebar-icon {
-    @apply w-full h-full;
-  }
-
-  .sidebar-text {
-    @apply ml-4 flex-grow text-base font-medium;
-  }
-
-  .content {
-    @apply flex flex-col bg-gray-200 p-12 pl-0;
-  }
-
-  .content-header-wrapper {
-    @apply w-full flex flex-wrap items-center justify-between pb-6;
-  }
-
-  .content-header-left {
-    @apply text-2xl font-bold;
-  }
-
-  .dashboard-wrapper {
-    @apply grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2 gap-4;
-  }
-
   .dashboard-card {
     @apply bg-white border border-gray-300 shadow-md rounded-md overflow-hidden p-6;
   }
@@ -71,18 +39,6 @@
 
   .subcontent {
     @apply p-4 bg-white border border-gray-300 rounded-md shadow-md text-sm overflow-hidden;
-  }
-
-  .large-table {
-    @apply grid w-full;
-  }
-
-  .large-table-header-cell {
-    @apply py-1 px-2 text-left font-medium border-b border-gray-300;
-  }
-
-  .large-table-cell {
-    @apply py-1 px-2;
   }
 }
 

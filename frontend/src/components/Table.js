@@ -6,7 +6,7 @@
 
 import { useEffect, forwardRef, useRef } from "react";
 import { useTable, useSortBy, useRowSelect } from "react-table";
-import { gridColsClass } from "./utils";
+import { gridColsClass } from "../utils";
 
 const IndeterminateCheckbox = forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -65,12 +65,12 @@ function Table({ columns, data, setSelectedRows }) {
 
     // Render the UI for your table
     return (
-        <div className={`large-table ${gridColsClass(columns.length + 1)}`} {...getTableProps()}>
+        <div className={`grid w-full ${gridColsClass(columns.length + 1)}`} {...getTableProps()}>
             <div className="contents">
                 {headerGroups.map((headerGroup) => (
                     <div className="contents" {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map((column) => (
-                            <div className="large-table-header-cell" {...column.getHeaderProps(column.getSortByToggleProps())}>
+                            <div className="py-1 px-2 text-left font-medium border-b border-gray-300" {...column.getHeaderProps(column.getSortByToggleProps())}>
                                 {column.render("Header")}
                                 <span>
                                     {column.isSorted
@@ -90,7 +90,7 @@ function Table({ columns, data, setSelectedRows }) {
                     return (
                         <div className="contents" {...row.getRowProps()}>
                             {row.cells.map((cell) => {
-                                return <div className="large-table-cell" {...cell.getCellProps()}>{cell.render("Cell")}</div>;
+                                return <div className="py-1 px-2" {...cell.getCellProps()}>{cell.render("Cell")}</div>;
                             })}
                         </div>
                     );
