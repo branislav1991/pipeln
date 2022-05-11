@@ -7,7 +7,7 @@
 
 import { BsBell } from 'react-icons/bs'
 
-function HeaderRight() {
+function Header() {
     return (
         <div className="flex items-center pb-6">
             <div className="relative text-gray-500 w-full mr-6">
@@ -35,4 +35,4 @@ function HeaderRight() {
     )
 }
 
-export default HeaderRight;
+export default Header;

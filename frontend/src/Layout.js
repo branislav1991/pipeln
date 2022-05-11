@@ -7,7 +7,7 @@
 
 import { Outlet } from 'react-router-dom';
 import SideBar from './components/Sidebar';
-import HeaderRight from "./components/HeaderRight";
+import Header from "./components/Header";
 
 function Layout() {
     return (
@@ -15,7 +15,7 @@ function Layout() {
             <SideBar />
             <main className="w-full ml-64 text-gray-600">
                 <div className="container mx-auto p-12 pt-6 pl-0">
-                    <HeaderRight />
+                    <Header />
                     <Outlet />
                 </div>
             </main>
