@@ -13,7 +13,7 @@ function Layout() {
     return (
         <div className="flex flex-nowrap">
             <SideBar />
-            <main className="w-full ml-64 text-gray-600">
+            <main className="w-full ml-20 xl:ml-64 text-gray-600">
                 <div className="container mx-auto p-12 pt-6 pl-0">
                     <Header />
                     <Outlet />
