@@ -18,7 +18,8 @@ function SideBar() {
                 <SideBarItem icon={<BsBarChart className="w-full h-full" />} text="Statistics" />
             </div>
             <div className="flex flex-col space-y-2">
-                <SideBarItem icon={<BsGear className="w-full h-full" />} text="Settings" />
+                <SideBarItem icon={<BsGear className="w-full h-full" />} text="Documentation" />
+                <SideBarItem icon={<BsGear className="w-full h-full" />} text="Account" />
             </div>
         </aside >
     );
