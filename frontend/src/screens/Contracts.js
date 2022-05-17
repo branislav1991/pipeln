@@ -9,6 +9,7 @@ import { BsArrowClockwise, BsClipboardCheck, BsPlus, BsTrash } from "react-icons
 import { getContracts, deleteContracts } from "../controllers/contract";
 import { getEndpoint } from "../controllers/endpoint";
 import Table from "../components/Table";
+import CreateContract from "../popups/CreateContract";
 
 function Contracts() {
     const columns = useMemo(
@@ -45,6 +46,7 @@ function Contracts() {
     const [deletingData, setDeletingData] = useState(false);
     const [selectedRows, setSelectedRows] = useState([])
     const [data, setData] = useState([]);
+    const [createContractOpen, setCreateContractOpen] = useState(false);
 
     // Fetching data at load time
     useEffect(() => {
@@ -107,10 +109,11 @@ function Contracts() {
     return (
         <div>
             <div className="text-2xl pb-6 flex items-center space-x-3"><BsClipboardCheck /><p>Contracts</p></div>
+            {createContractOpen ? <CreateContract onClose={() => setCreateContractOpen(false)} /> : ""}
             <div className="submenu">
-                <button className="submenu-btn"><BsPlus size={20} /><span>Create</span></button>
-                <button className="submenu-btn" onClick={() => setLoadingData(true)}><BsArrowClockwise size={20} /><span>Refresh</span></button>
-                <button className="submenu-btn" data-testid="delete-btn" disabled={selectedRows.length < 1} onClick={() => setDeletingData(true)}><BsTrash size={20} /><span>Delete</span></button>
+                <button className="button-border" onClick={() => setCreateContractOpen(true)}><BsPlus size={20} /><span>Create</span></button>
+                <button className="button-border" onClick={() => setLoadingData(true)}><BsArrowClockwise size={20} /><span>Refresh</span></button>
+                <button className="button-border" data-testid="delete-btn" disabled={selectedRows.length < 1} onClick={() => setDeletingData(true)}><BsTrash size={20} /><span>Delete</span></button>
             </div>
             <div className="subcontent">
                 {

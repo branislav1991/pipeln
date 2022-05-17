@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { BsBarChart, BsClipboardCheck, BsFolder, BsGear, BsSpeedometer, BsPlug } from 'react-icons/bs'
+import { BsBarChart, BsClipboardCheck, BsFolder, BsGear, BsSpeedometer, BsPlug, BsEasel } from 'react-icons/bs'
 import { Link } from "react-router-dom";
 
 function SideBar() {
@@ -19,7 +19,7 @@ function SideBar() {
                 <SideBarItem icon={<BsBarChart className="w-full h-full" />} text="Statistics" tooltip="Statistics" />
             </div>
             <div className="flex flex-col space-y-2">
-                <SideBarItem icon={<BsGear className="w-full h-full" />} text="Documentation" tooltip="Documentation" />
+                <SideBarItem icon={<BsEasel className="w-full h-full" />} text="Documentation" tooltip="Documentation" />
                 <SideBarItem icon={<BsGear className="w-full h-full" />} text="Account" tooltip="Account" />
             </div>
         </nav >

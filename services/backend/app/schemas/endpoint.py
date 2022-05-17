@@ -11,5 +11,7 @@ class EndpointType(Enum):
 
 class Endpoint(BaseModel):
     id: int
+    userId: int
     type: EndpointType
     address: str
+    active: bool

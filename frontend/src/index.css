@@ -29,12 +29,12 @@
     @apply px-6 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out;
   }
 
-  .submenu {
-    @apply mb-4 w-full flex items-center space-x-2 p-4 bg-white border border-gray-300 rounded-md shadow-md overflow-hidden;
+  .button-border {
+    @apply flex items-center space-x-1 px-3 py-1 border border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:shadow focus:shadow focus:outline-none focus:ring-0 active:shadow disabled:border-gray-400 disabled:text-gray-400 disabled:shadow-none transition duration-150 ease-in-out;
   }
 
-  .submenu-btn {
-    @apply flex items-center space-x-1 px-3 py-1 border border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:shadow focus:shadow focus:outline-none focus:ring-0 active:shadow disabled:border-gray-400 disabled:text-gray-400 disabled:shadow-none transition duration-150 ease-in-out;
+  .submenu {
+    @apply mb-4 w-full flex items-center space-x-2 p-4 bg-white border border-gray-300 rounded-md shadow-md overflow-hidden;
   }
 
   .subcontent {
