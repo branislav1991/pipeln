@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-05-12T14:55:17.381Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36" etag="JkiyCpFBaLi4meE_9nmq" version="18.0.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-05-17T14:57:10.474Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36" etag="K1iRjUZ5Ui13zOBDsS9j" version="18.0.3" type="github">
   <diagram name="Page-1" id="edf60f1a-56cd-e834-aa8a-f176f3a09ee4">
-    <mxGraphModel dx="2781" dy="641" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1749" dy="342" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -60,14 +60,17 @@
             <mxPoint x="830" y="690" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PBYG_mMgaOm4Sc-KPQiD-13" value="Endpoints exist?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
+        <mxCell id="PBYG_mMgaOm4Sc-KPQiD-13" value="My Endpoint exists?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="782.5" y="590" width="95" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="PBYG_mMgaOm4Sc-KPQiD-18" value="Create new endpoints from create contract pane" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
+        <mxCell id="hc9WYxpJj_GSy0RCnbey-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="PBYG_mMgaOm4Sc-KPQiD-18" target="PBYG_mMgaOm4Sc-KPQiD-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PBYG_mMgaOm4Sc-KPQiD-18" value="Create new endpoint from create contract pane" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="600" y="587.5" width="120" height="55" as="geometry" />
         </mxCell>
         <mxCell id="PBYG_mMgaOm4Sc-KPQiD-23" value="End" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;rounded=0;shadow=1;labelBackgroundColor=none;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
-          <mxGeometry x="800" y="1170" width="60" height="30" as="geometry" />
+          <mxGeometry x="800" y="1210" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ve2KJu9dEQYRQKSxrzHC-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="PBYG_mMgaOm4Sc-KPQiD-24" target="PBYG_mMgaOm4Sc-KPQiD-27" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -102,8 +105,8 @@
         <mxCell id="ve2KJu9dEQYRQKSxrzHC-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="ve2KJu9dEQYRQKSxrzHC-8" target="PBYG_mMgaOm4Sc-KPQiD-23" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ve2KJu9dEQYRQKSxrzHC-8" value="Setup contract for both users, with the remote user having to choose a name for the contract; contract appears in list of contracts for both users&lt;br&gt;&lt;br&gt;In case recipient didn&#39;t have the sender endpoint registered yet, it is registered for him (possibility to choose a descriptive name)" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
-          <mxGeometry x="740" y="1050" width="180" height="100" as="geometry" />
+        <mxCell id="ve2KJu9dEQYRQKSxrzHC-8" value="Receiver has to select an endpoint (existing or new) to receive data&lt;br&gt;&lt;br&gt;Setup contract for both users, with the remote user having to choose a name for the contract; contract appears in list of contracts for both users&lt;br&gt;&lt;br&gt;In case recipient didn&#39;t have the sender endpoint registered yet, it is registered for him (possibility to choose a descriptive name)" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
+          <mxGeometry x="740" y="1050" width="180" height="130" as="geometry" />
         </mxCell>
         <mxCell id="ve2KJu9dEQYRQKSxrzHC-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ve2KJu9dEQYRQKSxrzHC-12" target="ve2KJu9dEQYRQKSxrzHC-13" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -114,7 +117,7 @@
         <mxCell id="ve2KJu9dEQYRQKSxrzHC-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ve2KJu9dEQYRQKSxrzHC-13" target="ve2KJu9dEQYRQKSxrzHC-17" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ve2KJu9dEQYRQKSxrzHC-13" target="ve2KJu9dEQYRQKSxrzHC-17">
+        <mxCell id="imrqkbVThubz8YPRaBsE-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ve2KJu9dEQYRQKSxrzHC-13" target="ve2KJu9dEQYRQKSxrzHC-17" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ve2KJu9dEQYRQKSxrzHC-13" value="API or user himself sends info to pipeln about sending data with &lt;b&gt;checksum and packet size&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
@@ -123,80 +126,80 @@
         <mxCell id="ve2KJu9dEQYRQKSxrzHC-17" value="pipeln waits until the receipt is acknowledged with the correct checksum and packet size; acknowledgment has to happen within the set timeout in the contract" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="310" y="320" width="165" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-1" target="imrqkbVThubz8YPRaBsE-4">
+        <mxCell id="imrqkbVThubz8YPRaBsE-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-1" target="imrqkbVThubz8YPRaBsE-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-6" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="imrqkbVThubz8YPRaBsE-5">
+        <mxCell id="imrqkbVThubz8YPRaBsE-6" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="imrqkbVThubz8YPRaBsE-5" vertex="1" connectable="0">
           <mxGeometry x="-0.2432" y="-2" relative="1" as="geometry">
             <mxPoint y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-8" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-1" target="imrqkbVThubz8YPRaBsE-7">
+        <mxCell id="imrqkbVThubz8YPRaBsE-8" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-1" target="imrqkbVThubz8YPRaBsE-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-1" value="Receipt acknowledged?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-1" value="Receipt acknowledged?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="333.75" y="430" width="117.5" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="ve2KJu9dEQYRQKSxrzHC-17" target="imrqkbVThubz8YPRaBsE-1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="ve2KJu9dEQYRQKSxrzHC-17" target="imrqkbVThubz8YPRaBsE-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="402.52857142857147" y="300" as="sourcePoint" />
             <mxPoint x="402.52857142857147" y="330" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-4" value="Remote endpoint marked as offline:&lt;br&gt;&lt;ol&gt;&lt;li style=&quot;text-align: left;&quot;&gt;system instructs client not to send any more data until acknowledgement is received&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;user is notified of an unresponsive system in the portal as well as, optionally, by email&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Also for remote user, the endpoint is marked as offline and remote user is notified&lt;/li&gt;&lt;/ol&gt;" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-4" value="Remote endpoint marked as offline:&lt;br&gt;&lt;ol&gt;&lt;li style=&quot;text-align: left;&quot;&gt;system instructs client not to send any more data until acknowledgement is received&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;user is notified of an unresponsive system in the portal as well as, optionally, by email&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Also for remote user, the endpoint is marked as offline and remote user is notified&lt;/li&gt;&lt;/ol&gt;" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="502.5" y="396.88" width="197.5" height="116.25" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-7" value="Remote endpoint is alive: increase size of data sent through the endpoint and through the contract for statistics" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-7" value="Remote endpoint is alive: increase size of data sent through the endpoint and through the contract for statistics" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="325" y="527.5" width="135" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-9" target="imrqkbVThubz8YPRaBsE-10">
+        <mxCell id="imrqkbVThubz8YPRaBsE-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-9" target="imrqkbVThubz8YPRaBsE-10" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-9" value="User: Receives data through an endpoint" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-9" value="User: Receives data through an endpoint" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="70" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-10" target="imrqkbVThubz8YPRaBsE-12">
+        <mxCell id="imrqkbVThubz8YPRaBsE-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-10" target="imrqkbVThubz8YPRaBsE-12" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="130" y="330" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-10" value="API/user requests information from pipeln about the checksum and packet size of all received data in the queue" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-10" value="API/user requests information from pipeln about the checksum and packet size of all received data in the queue" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="52.5" y="230" width="155" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-15" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-12" target="imrqkbVThubz8YPRaBsE-14">
+        <mxCell id="imrqkbVThubz8YPRaBsE-15" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-12" target="imrqkbVThubz8YPRaBsE-14" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-12" target="imrqkbVThubz8YPRaBsE-16">
+        <mxCell id="imrqkbVThubz8YPRaBsE-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-12" target="imrqkbVThubz8YPRaBsE-16" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-12" value="Data in queue?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-12" value="Data in queue?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="71.25" y="325" width="117.5" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-14" value="API/user informs pipeln ASAP that data was transferred successfully; connection is kept alive" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-14" value="API/user informs pipeln ASAP that data was transferred successfully; connection is kept alive" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="52.5" y="420" width="155" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-16" target="imrqkbVThubz8YPRaBsE-21">
+        <mxCell id="imrqkbVThubz8YPRaBsE-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-16" target="imrqkbVThubz8YPRaBsE-21" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-16" value="Wait until a specified timeout (shorter than the acknowledgment timeout) to obtain the information" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-16" value="Wait until a specified timeout (shorter than the acknowledgment timeout) to obtain the information" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="-100" y="319.38" width="130" height="61.25" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-23" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-21" target="imrqkbVThubz8YPRaBsE-14">
+        <mxCell id="imrqkbVThubz8YPRaBsE-23" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-21" target="imrqkbVThubz8YPRaBsE-14" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-21" target="imrqkbVThubz8YPRaBsE-24">
+        <mxCell id="imrqkbVThubz8YPRaBsE-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-21" target="imrqkbVThubz8YPRaBsE-24" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-21" value="Data in queue?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-21" value="Data in queue?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="-250" y="325" width="117.5" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="imrqkbVThubz8YPRaBsE-24" target="imrqkbVThubz8YPRaBsE-26">
+        <mxCell id="imrqkbVThubz8YPRaBsE-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="imrqkbVThubz8YPRaBsE-24" target="imrqkbVThubz8YPRaBsE-26" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-24" value="State of remote endpoint is set to corrupted; user is notified in the portal and, optionally, by email" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-24" value="State of remote endpoint is set to corrupted; user is notified in the portal and, optionally, by email" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="-410" y="319.38" width="130" height="61.25" as="geometry" />
         </mxCell>
-        <mxCell id="imrqkbVThubz8YPRaBsE-26" value="Pipeln in turn informs remote user about the corruption of his endpoint and sets the endpoint from remote user perspective to corrupted" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" vertex="1" parent="1">
+        <mxCell id="imrqkbVThubz8YPRaBsE-26" value="Pipeln in turn informs remote user about the corruption of his endpoint and sets the endpoint from remote user perspective to corrupted" style="rounded=1;whiteSpace=wrap;html=1;shadow=1;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
           <mxGeometry x="-420" y="418.75" width="150" height="71.25" as="geometry" />
         </mxCell>
       </root>
