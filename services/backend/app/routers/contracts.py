@@ -23,7 +23,7 @@ fake_contracts_db = [{
     "id": 3,
     "name": "PayPal",
     "type": "verify_manually",
-    "endpoints": [4, 6],
+    "endpoints": [4, 5],
     "status": "active",
 }]
 
