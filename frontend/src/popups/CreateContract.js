@@ -179,7 +179,7 @@ function ReceiversCombobox({ receivers, onSelected }) {
         receivers ?
             (
                 <Combobox value={selected} onChange={setSelected}>
-                    <div className="relative w-full border border-gray-300 rounded-lg overflow-hidden focus:outline-none">
+                    <div className="relative w-full bg-white border border-gray-300 rounded-lg overflow-hidden focus:outline-none">
                         <Combobox.Input
                             className="relative w-full outline-none cursor-default py-2 pl-3 pr-10 text-left text-gray-700 text-sm"
                             onChange={event => setQuery(event.target.value)}
@@ -193,7 +193,7 @@ function ReceiversCombobox({ receivers, onSelected }) {
                         </Combobox.Button>
                     </div>
                     <div className="relative w-full">
-                        <Combobox.Options className="absolute width-full mt-1 max-h-60 w-full rounded-md bg-white py-1 text-sm border border-gray-300">
+                        <Combobox.Options className="absolute width-full z-10 mt-1 max-h-60 w-full rounded-md bg-white py-1 text-sm border border-gray-300">
                             {filtered.length === 0 && query !== "" ? (
                                 <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                                     Nothing found.
@@ -304,9 +304,9 @@ function CreateContract({ onClose }) {
                         "title": "Receiver",
                         "content":
                             <>
-                                <p className="mb-1">Select Receiver: </p>
+                                <p className="mb-1 text-gray-700">Select Receiver: </p>
                                 <ReceiversCombobox receivers={receivers} onSelected={user => { setReceiver(user); setLoadingRemoteEndpoints(true); }} />
-                                <p className={`mt-4 mb-1 ${receiver ? "" : "hidden"}`}>Select Remote Endpoint: </p>
+                                <p className={`mt-4 mb-1 text-gray-700 ${receiver ? "" : "hidden"}`}>Select Remote Endpoint: </p>
                                 <EndpointsListBox endpoints={remoteEndpoints} className={`${receiver ? "" : "hidden"}`} />
                             </>
                     },
