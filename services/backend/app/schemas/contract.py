@@ -22,7 +22,7 @@ class ContractStatus(Enum):
 
 
 class Contract(BaseModel):
-    id: int
+    id: int | None
     name: str
     verificationMethod: VerificationMethod
     authenticationMethod: AuthenticationMethod

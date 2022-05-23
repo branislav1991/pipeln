@@ -1,30 +1,30 @@
 /* Copyright (c) 2022 Branislav Hollaender. All rights reserved. */
 
 import { Combobox, Dialog, Listbox } from '@headlessui/react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Accordion from '../components/Accordion'
 import { getEndpointsForUser } from '../controllers/endpoint'
 import { BsChevronExpand, BsCircleFill, BsExclamationTriangle, BsInfoCircle } from 'react-icons/bs'
 import TimeInput from '../components/TimeInput'
 import { getUser } from '../controllers/user'
 import ErrorBox from '../components/ErrorBox'
+import { fromSeconds, toSeconds } from '../utils'
 
 /**
  * @fileoverview Popup to create a new contract (usually shown in Contracts screen)
  */
 
 const verifications = [
-    "Checksum",
-    "Manual",
+    { name: "Checksum", value: "checksum" },
+    { name: "Manual", value: "manual" },
 ]
 
-const VerificationListBox = () => {
-    const [selected, setSelected] = useState("Checksum");
+const VerificationListBox = ({ value, onChange }) => {
 
     return (
-        <Listbox value={selected} onChange={setSelected}>
+        <Listbox value={value} onChange={onChange}>
             <Listbox.Button className="relative flex items-center w-full cursor-pointer rounded-lg py-2 pl-3 pr-10 text-left text-sm border border-gray-300 text-gray-700">
-                <span className="truncate">{selected}</span>
+                <span className="truncate">{value["name"]}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <BsChevronExpand
                         className="h-5 w-5 text-gray-400"
@@ -39,7 +39,7 @@ const VerificationListBox = () => {
                             key={idx}
                             value={ver}
                             className={({ active }) => `relative items-center flex space-x-2 cursor-default select-none py-2 pl-4 pr-4 ${active ? "bg-blue-600 text-white" : "text-gray-700"}`}>
-                            <span className="grow">{ver}</span>
+                            <span className="grow">{ver["name"]}</span>
                         </Listbox.Option>
                     ))}
                 </Listbox.Options>
@@ -49,17 +49,15 @@ const VerificationListBox = () => {
 }
 
 const authentications = [
-    "ID token (OpenID Connect)",
-    "IP Address",
+    { name: "ID token (OpenID Connect)", value: "idToken" },
+    { name: "IP Address", value: "ipAddress" },
 ]
 
-const AuthenticationListBox = () => {
-    const [selected, setSelected] = useState("ID token (OpenID Connect)");
-
+const AuthenticationListBox = ({ value, onChange }) => {
     return (
-        <Listbox value={selected} onChange={setSelected}>
+        <Listbox value={value} onChange={onChange}>
             <Listbox.Button className="relative flex items-center w-full cursor-pointer rounded-lg py-2 pl-3 pr-10 text-left text-sm border border-gray-300 text-gray-700">
-                <span className="truncate">{selected}</span>
+                <span className="truncate">{value["name"]}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <BsChevronExpand
                         className="h-5 w-5 text-gray-400"
@@ -74,7 +72,7 @@ const AuthenticationListBox = () => {
                             key={idx}
                             value={ver}
                             className={({ active }) => `relative items-center flex space-x-2 cursor-default select-none py-2 pl-4 pr-4 ${active ? "bg-blue-600 text-white" : "text-gray-700"}`}>
-                            <span className="grow">{ver}</span>
+                            <span className="grow">{ver["name"]}</span>
                         </Listbox.Option>
                     ))}
                 </Listbox.Options>
@@ -83,7 +81,7 @@ const AuthenticationListBox = () => {
     );
 }
 
-const TimeWrapper = () => {
+const TimeWrapper = ({ initTime, onChange }) => {
     const onFocusHandler = (event) => {
     }
 
@@ -92,7 +90,7 @@ const TimeWrapper = () => {
 
     const onTimeChangeHandler = (val) => {
         if (val.length === 5) {
-            // do something with this value
+            onChange(val);
         }
     }
 
@@ -101,7 +99,7 @@ const TimeWrapper = () => {
             <label htmlFor="timeoutLbl" className="text-gray-700 text-sm font-medium mr-2">Reponse timeout (hh:mm): </label>
             <TimeInput
                 name="timeoutLbl"
-                initTime="01:00"
+                initTime={initTime}
                 className="col-span-2 appearance-none border border-gray-300 focus:outline-none focus:border-blue-600 rounded px-2 py-2 w-14 text-gray-700 leading-tight"
                 mountFocus={false}
                 onTimeChange={onTimeChangeHandler}
@@ -217,7 +215,7 @@ function ReceiversCombobox({ receivers, onSelected }) {
     )
 }
 
-function CreateContract({ onClose }) {
+function CreateContract({ onCreate, onCancel }) {
     const fakeUserId = 1;
     const [myEndpoints, setMyEndpoints] = useState();
     const [loadingMyEndpoints, setLoadingMyEndpoints] = useState(true);
@@ -228,7 +226,10 @@ function CreateContract({ onClose }) {
     const [remoteEndpoints, setRemoteEndpoints] = useState();
     const [loadingRemoteEndpoints, setLoadingRemoteEndpoints] = useState(false);
     const [remoteSelectedEndpoint, setRemoteSelectedEndpoint] = useState();
+    const [verificationMethod, setVerificationMethod] = useState(verifications[0]);
+    const [authenticationMethod, setAuthenticationMethod] = useState(authentications[0]);
     const [name, setName] = useState("");
+    const [timeout, setTimeout] = useState(3600);
     const [formErrors, setFormErrors] = useState([]);
 
     // Load my endpoints
@@ -315,22 +316,28 @@ function CreateContract({ onClose }) {
             return;
         }
 
-        alert('Your favorite flavor is: ' + mySelectedEndpoint["address"]);
         const url = "http://localhost:8000/contracts/create";
         const requestOptions = {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ endpoints: [mySelectedEndpoint["address"]] }),
+            body: JSON.stringify({ name: name, verificationMethod: verificationMethod["value"], authenticationMethod: authenticationMethod["value"], endpoints: [mySelectedEndpoint["id"], remoteSelectedEndpoint["id"]], status: "initialized", timeout: timeout }),
         }
         fetch(url, requestOptions)
-            .then()
+            .then(onCreate())
             .catch(error => console.log('Form submit error', error));
 
         event.preventDefault();
     }
 
+    const onReceiverSelected = useCallback(
+        user => {
+            setReceiver(user);
+            setLoadingRemoteEndpoints(true);
+        }, []
+    );
+
     return (
-        <Dialog open={true} onClose={onClose ? onClose : () => { }} className="fixed inset-0 p-4 pt-[10vh] overflow-y-auto z-20">
+        <Dialog open={true} onClose={onCancel ? onCancel : () => { }} className="fixed inset-0 p-4 pt-[10vh] overflow-y-auto z-20">
             <Dialog.Overlay className="fixed inset-0 bg-gray-500/75" />
             <div className="relative bg-white max-w-xl mx-auto rounded-xl shadow-2xl ring-1 ring-black/5 p-4">
                 <h1 className="text-center text-gray-600 text-lg font-medium mb-6">New Contract</h1>
@@ -345,18 +352,18 @@ function CreateContract({ onClose }) {
                         "content":
                             <>
                                 <p className="mb-1 text-gray-700">Select Receiver: </p>
-                                <ReceiversCombobox receivers={receivers} onSelected={user => { setReceiver(user); setLoadingRemoteEndpoints(true); }} />
+                                <ReceiversCombobox receivers={receivers} onSelected={onReceiverSelected} />
                                 <p className={`mt-4 mb-1 text-gray-700 ${receiver ? "" : "hidden"}`}>Select Remote Endpoint: </p>
                                 <EndpointsListBox endpoints={remoteEndpoints} selected={remoteSelectedEndpoint} setSelected={setRemoteSelectedEndpoint} className={`${receiver ? "" : "hidden"}`} />
                             </>
                     },
                     {
                         "title": "Verification",
-                        "content": <VerificationListBox />
+                        "content": <VerificationListBox value={verificationMethod} onChange={setVerificationMethod} />
                     },
                     {
                         "title": "Authentication",
-                        "content": <AuthenticationListBox />
+                        "content": <AuthenticationListBox value={authenticationMethod} onChange={setAuthenticationMethod} />
                     },
                     {
                         "title": "Additional Settings",
@@ -364,14 +371,14 @@ function CreateContract({ onClose }) {
                             <div className="grid grid-cols-3 gap-4 items-center">
                                 <label htmlFor="contractName" className="text-gray-700 text-sm font-medium">Name: </label>
                                 <input name="name" type="text" className="col-span-2 appearance-none border border-gray-300 focus:outline-none focus:border-blue-600 rounded px-2 py-2 text-gray-700" value={name} onChange={val => setName(val.target.value)} />
-                                <TimeWrapper />
+                                <TimeWrapper initTime={fromSeconds(timeout)} onChange={val => setTimeout(toSeconds(val))} />
                             </div>
                         )
                     }
                 ]} />
                 <div className="flex space-x-2 pt-6">
                     <button className="button-border" onClick={onSubmit} disabled={formErrors.length}><span>Create</span></button>
-                    <button className="button-border" onClick={onClose}><span>Cancel</span></button>
+                    <button className="button-border" onClick={onCancel}><span>Cancel</span></button>
                 </div>
             </div>
         </Dialog>

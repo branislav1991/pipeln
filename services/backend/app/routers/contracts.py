@@ -51,4 +51,5 @@ async def delete_contract(contract_id: int):
 
 @router.post("/create")
 async def create_contract(contract: Contract):
+    fake_contracts_db.append(contract)
     return contract

@@ -50,4 +50,27 @@ const gridColsClass = (numCols) => {
     }
 }
 
-export { clone, gridColsClass };
+/**
+ * Converts seconds to a string with the format hh:mm
+ */
+const fromSeconds = (seconds) => {
+    const zeroPad = (num, places) => String(num).padStart(places, '0')
+
+    const hours = Math.floor(seconds / 3600);
+    seconds %= 3600;
+    const minutes = Math.floor(seconds / 60);
+
+    return zeroPad(hours, 2) + ":" + zeroPad(minutes, 2);
+}
+
+/**
+ * Converts a string with the format hh:mm to number of seconds
+ */
+const toSeconds = (timeStr) => {
+    const hours = Number(timeStr.substring(0, 2));
+    const minutes = Number(timeStr.substring(3, 5));
+
+    return hours * 3600 + minutes * 60;
+}
+
+export { clone, gridColsClass, fromSeconds, toSeconds };

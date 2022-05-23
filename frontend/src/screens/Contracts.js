@@ -106,10 +106,20 @@ function Contracts() {
 
     }, [data, deletingData, selectedRows]);
 
+    const onCancelCreateDialog = () => {
+        setCreateContractOpen(false);
+    }
+
+    const onCreateContract = () => {
+        // Reload contracts to include the new contract
+        setLoadingData(true);
+        setCreateContractOpen(false);
+    }
+
     return (
         <div>
             <div className="text-2xl pb-6 flex items-center space-x-3"><BsClipboardCheck /><p>Contracts</p></div>
-            {createContractOpen ? <CreateContract onClose={() => setCreateContractOpen(false)} /> : ""}
+            {createContractOpen ? <CreateContract onCancel={onCancelCreateDialog} onCreate={onCreateContract} /> : ""}
             <div className="submenu">
                 <button className="button-border" onClick={() => setCreateContractOpen(true)}><BsPlus size={20} /><span>Create</span></button>
                 <button className="button-border" onClick={() => setLoadingData(true)}><BsArrowClockwise size={20} /><span>Refresh</span></button>
