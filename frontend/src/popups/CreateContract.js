@@ -4,21 +4,22 @@ import { Combobox, Dialog, Listbox } from '@headlessui/react'
 import { useEffect, useState } from 'react'
 import Accordion from '../components/Accordion'
 import { getEndpointsForUser } from '../controllers/endpoint'
-import { BsChevronExpand, BsCircleFill, BsExclamationTriangle } from 'react-icons/bs'
+import { BsChevronExpand, BsCircleFill, BsExclamationTriangle, BsInfoCircle } from 'react-icons/bs'
 import TimeInput from '../components/TimeInput'
 import { getUser } from '../controllers/user'
+import ErrorBox from '../components/ErrorBox'
 
 /**
  * @fileoverview Popup to create a new contract (usually shown in Contracts screen)
  */
 
 const verifications = [
-    "Automatic",
+    "Checksum",
     "Manual",
 ]
 
 const VerificationListBox = () => {
-    const [selected, setSelected] = useState("Automatic");
+    const [selected, setSelected] = useState("Checksum");
 
     return (
         <Listbox value={selected} onChange={setSelected}>
@@ -96,24 +97,22 @@ const TimeWrapper = () => {
     }
 
     return (
-        <div className="items-center">
+        <>
             <label htmlFor="timeoutLbl" className="text-gray-700 text-sm font-medium mr-2">Reponse timeout (hh:mm): </label>
             <TimeInput
                 name="timeoutLbl"
-                initTime='01:00'
-                className='appearance-none border border-gray-300 focus:outline-none focus:border-blue-600 rounded px-2 py-2 w-14 text-gray-700 leading-tight'
-                mountFocus='true'
+                initTime="01:00"
+                className="col-span-2 appearance-none border border-gray-300 focus:outline-none focus:border-blue-600 rounded px-2 py-2 w-14 text-gray-700 leading-tight"
+                mountFocus={false}
                 onTimeChange={onTimeChangeHandler}
                 onFocusHandler={onFocusHandler}
                 onBlurHandler={onBlurHandler}
             />
-        </div>
+        </>
     );
 }
 
-const EndpointsListBox = ({ endpoints, className }) => {
-    const [selected, setSelected] = useState();
-
+const EndpointsListBox = ({ endpoints, className, selected, setSelected }) => {
     return (
         endpoints ?
             (
@@ -145,8 +144,7 @@ const EndpointsListBox = ({ endpoints, className }) => {
                     </Listbox>
                     {selected && !selected["active"] &&
                         <div className="flex mt-4 space-x-3">
-                            <BsExclamationTriangle className="w-5 h-auto" />
-                            <p className="text-gray-700">This endpoint is inactive. It might not respond.</p>
+                            <ErrorBox errors={["This endpoint is inactive. It might not respond."]} className="border border-orange-400" icon={<BsExclamationTriangle className="w-full h-auto" />} iconClassName="text-orange-400" />
                         </div>
                     }
                 </div>
@@ -223,11 +221,15 @@ function CreateContract({ onClose }) {
     const fakeUserId = 1;
     const [myEndpoints, setMyEndpoints] = useState();
     const [loadingMyEndpoints, setLoadingMyEndpoints] = useState(true);
+    const [mySelectedEndpoint, setMySelectedEndpoint] = useState();
     const [receivers, setReceivers] = useState();
     const [loadingReceivers, setLoadingReceivers] = useState(true);
     const [receiver, setReceiver] = useState();
     const [remoteEndpoints, setRemoteEndpoints] = useState();
     const [loadingRemoteEndpoints, setLoadingRemoteEndpoints] = useState(false);
+    const [remoteSelectedEndpoint, setRemoteSelectedEndpoint] = useState();
+    const [name, setName] = useState("");
+    const [formErrors, setFormErrors] = useState([]);
 
     // Load my endpoints
     useEffect(() => {
@@ -290,15 +292,53 @@ function CreateContract({ onClose }) {
         }
     }, [loadingRemoteEndpoints, receiver]);
 
+    // Validation
+    useEffect(() => {
+        let newErrors = []
+        if (!mySelectedEndpoint) {
+            newErrors.push("- Please select my endpoint");
+        }
+
+        if (!remoteSelectedEndpoint) {
+            newErrors.push("- Please select remote endpoint");
+        }
+
+        if (!name) {
+            newErrors.push("- Please give this contract a name");
+        }
+
+        setFormErrors(newErrors);
+    }, [mySelectedEndpoint, remoteSelectedEndpoint, name]);
+
+    const onSubmit = (event) => {
+        if (formErrors.length) {
+            return;
+        }
+
+        alert('Your favorite flavor is: ' + mySelectedEndpoint["address"]);
+        const url = "http://localhost:8000/contracts/create";
+        const requestOptions = {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ endpoints: [mySelectedEndpoint["address"]] }),
+        }
+        fetch(url, requestOptions)
+            .then()
+            .catch(error => console.log('Form submit error', error));
+
+        event.preventDefault();
+    }
+
     return (
-        <Dialog open={true} onClose={onClose ? onClose : () => { }} className="fixed inset-0 p-4 pt-[25vh] overflow-y-auto z-20">
+        <Dialog open={true} onClose={onClose ? onClose : () => { }} className="fixed inset-0 p-4 pt-[10vh] overflow-y-auto z-20">
             <Dialog.Overlay className="fixed inset-0 bg-gray-500/75" />
             <div className="relative bg-white max-w-xl mx-auto rounded-xl shadow-2xl ring-1 ring-black/5 p-4">
                 <h1 className="text-center text-gray-600 text-lg font-medium mb-6">New Contract</h1>
+                <ErrorBox errors={formErrors} className="border border-blue-600" icon={<BsInfoCircle className="w-full h-auto" />} iconClassName="text-blue-600" />
                 <Accordion items={[
                     {
                         "title": "My Endpoint",
-                        "content": <EndpointsListBox endpoints={myEndpoints} />
+                        "content": <EndpointsListBox endpoints={myEndpoints} selected={mySelectedEndpoint} setSelected={setMySelectedEndpoint} />
                     },
                     {
                         "title": "Receiver",
@@ -307,7 +347,7 @@ function CreateContract({ onClose }) {
                                 <p className="mb-1 text-gray-700">Select Receiver: </p>
                                 <ReceiversCombobox receivers={receivers} onSelected={user => { setReceiver(user); setLoadingRemoteEndpoints(true); }} />
                                 <p className={`mt-4 mb-1 text-gray-700 ${receiver ? "" : "hidden"}`}>Select Remote Endpoint: </p>
-                                <EndpointsListBox endpoints={remoteEndpoints} className={`${receiver ? "" : "hidden"}`} />
+                                <EndpointsListBox endpoints={remoteEndpoints} selected={remoteSelectedEndpoint} setSelected={setRemoteSelectedEndpoint} className={`${receiver ? "" : "hidden"}`} />
                             </>
                     },
                     {
@@ -321,12 +361,16 @@ function CreateContract({ onClose }) {
                     {
                         "title": "Additional Settings",
                         "content": (
-                            <TimeWrapper />
+                            <div className="grid grid-cols-3 gap-4 items-center">
+                                <label htmlFor="contractName" className="text-gray-700 text-sm font-medium">Name: </label>
+                                <input name="name" type="text" className="col-span-2 appearance-none border border-gray-300 focus:outline-none focus:border-blue-600 rounded px-2 py-2 text-gray-700" value={name} onChange={val => setName(val.target.value)} />
+                                <TimeWrapper />
+                            </div>
                         )
                     }
                 ]} />
                 <div className="flex space-x-2 pt-6">
-                    <button className="button-border"><span>Create</span></button>
+                    <button className="button-border" onClick={onSubmit} disabled={formErrors.length}><span>Create</span></button>
                     <button className="button-border" onClick={onClose}><span>Cancel</span></button>
                 </div>
             </div>

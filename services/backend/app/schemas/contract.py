@@ -2,14 +2,21 @@
 
 from enum import Enum
 from pydantic import BaseModel
+from typing import List
 
 
-class ContractType(Enum):
-    verify_checksum = "verify_checksum"
-    verify_manually = "verify_manually"
+class VerificationMethod(Enum):
+    checksum = "checksum"
+    manual = "manual"
+
+
+class AuthenticationMethod(Enum):
+    idToken = "idToken"
+    ipAddress = "ipAddress"
 
 
 class ContractStatus(Enum):
+    initialized = "initialized"
     active = "active"
     not_responding = "not_responding"
 
@@ -17,6 +24,8 @@ class ContractStatus(Enum):
 class Contract(BaseModel):
     id: int
     name: str
-    type: ContractType
-    endpoints: list[int]
+    verificationMethod: VerificationMethod
+    authenticationMethod: AuthenticationMethod
+    endpoints: List[int]
     status: ContractStatus
+    timeout: int

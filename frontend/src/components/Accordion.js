@@ -13,7 +13,7 @@ function AccordionLayout({ title, children, index, activeIndex, setActiveIndex }
     return (
         <div className="w-full">
             {/* Header */}
-            <div onClick={() => handleSetIndex(index)} className="flex justify-between p-2 mt-2 rounded border-t border-gray-300 cursor-pointer">
+            <div onClick={() => handleSetIndex(index)} className="flex justify-between p-2 mt-2 border-t border-gray-300 cursor-pointer">
                 <div className="flex">
                     <div className="text-gray-600 font-bold">{title}</div>
                 </div>

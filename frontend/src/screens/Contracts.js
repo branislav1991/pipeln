@@ -23,16 +23,16 @@ function Contracts() {
                 accessor: "name",
             },
             {
-                Header: "Type",
-                accessor: "type",
+                Header: "Verification",
+                accessor: "verificationMethod",
+            },
+            {
+                Header: "Authentication",
+                accessor: "authenticationMethod",
             },
             {
                 Header: "Remote Endpoint",
                 accessor: "remoteEndpoint",
-            },
-            {
-                Header: "My Endpoint",
-                accessor: "myEndpoint"
             },
             {
                 Header: "Status",

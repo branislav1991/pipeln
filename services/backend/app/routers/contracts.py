@@ -10,21 +10,27 @@ router = APIRouter(prefix="/contracts", tags=["contracts"])
 fake_contracts_db = [{
     "id": 1,
     "name": "Stripe 1",
-    "type": "verify_checksum",
+    "verificationMethod": "checksum",
+    "authenticationMethod": "idToken",
     "endpoints": [1, 2],
     "status": "not_responding",
+    "timeout": 3600
 }, {
     "id": 2,
     "name": "Stripe 2",
-    "type": "verify_checksum",
+    "verificationMethod": "checksum",
+    "authenticationMethod": "idToken",
     "endpoints": [3, 2],
     "status": "active",
+    "timeout": 60
 }, {
     "id": 3,
     "name": "PayPal",
-    "type": "verify_manually",
+    "verificationMethod": "manual",
+    "authenticationMethod": "ipAddress",
     "endpoints": [4, 5],
     "status": "active",
+    "timeout": 120
 }]
 
 
@@ -44,5 +50,5 @@ async def delete_contract(contract_id: int):
 
 
 @router.post("/create")
-async def create_contract():
-    pass
+async def create_contract(contract: Contract):
+    return contract
