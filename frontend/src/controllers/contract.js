@@ -40,8 +40,19 @@ async function deleteContracts(ids) {
     }
 }
 
-async function createContract(name, type,) {
+async function createContract(contract) {
+    const url = "http://localhost:8000/contracts/create";
+    const requestOptions = {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contract),
+    }
+    const response = await fetch(url, requestOptions);
 
+    if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+    }
 }
 
-export { getContracts, deleteContracts };
+export { getContracts, deleteContracts, createContract };

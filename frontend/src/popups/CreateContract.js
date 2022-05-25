@@ -9,6 +9,7 @@ import TimeInput from '../components/TimeInput'
 import { getUser } from '../controllers/user'
 import ErrorBox from '../components/ErrorBox'
 import { fromSeconds, toSeconds } from '../utils'
+import { createContract } from '../controllers/contract'
 
 /**
  * @fileoverview Popup to create a new contract (usually shown in Contracts screen)
@@ -316,16 +317,17 @@ function CreateContract({ onCreate, onCancel }) {
             return;
         }
 
-        const url = "http://localhost:8000/contracts/create";
-        const requestOptions = {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: name, verificationMethod: verificationMethod["value"], authenticationMethod: authenticationMethod["value"], endpoints: [mySelectedEndpoint["id"], remoteSelectedEndpoint["id"]], status: "initialized", timeout: timeout }),
-        }
-        fetch(url, requestOptions)
+        createContract({
+            name: name,
+            verificationMethod: verificationMethod["value"],
+            authenticationMethod: authenticationMethod["value"],
+            endpoints: [mySelectedEndpoint["id"],
+            remoteSelectedEndpoint["id"]],
+            status: "initialized",
+            timeout: timeout
+        })
             .then(onCreate())
-            .catch(error => console.log('Form submit error', error));
-
+            .catch(error => console.log(error));
         event.preventDefault();
     }
 
