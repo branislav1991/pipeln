@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 export const isValid = (val) => {
-    const regexp = /^\d{0,2}?\:?\d{0,2}$/;
+    const regexp = /^\d{0,2}?:?\d{0,2}$/;
 
     const [hoursStr, minutesStr] = val.split(':');
 
@@ -56,7 +56,7 @@ const TimeInput = ({ initTime, disabled, mountFocus, onTimeChange, type, onFocus
     let lastVal = '';
 
     const onChangeHandler = (val) => {
-        if (val == time) {
+        if (val === time) {
             return;
         }
         if (isValid(val)) {
