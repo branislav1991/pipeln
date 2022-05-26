@@ -16,7 +16,7 @@ import ServicesStatus from "../dashboard-cards/ServicesStatus";
 function Dashboard() {
     return (
         <div>
-            <div className="text-2xl pb-6 flex items-center space-x-3"><BsSpeedometer /><p>Dashboard</p></div>
+            <div role="heading" className="text-2xl pb-6 flex items-center space-x-3"><BsSpeedometer /><p>Dashboard</p></div>
             <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2 gap-4">
                 <ServicesStatus />
                 <Projects />

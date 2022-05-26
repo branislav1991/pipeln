@@ -79,7 +79,8 @@ function Contracts() {
                             setData(contracts);
                             setLoadingData(false);
                         });
-                });
+                })
+                .catch(error => console.error(error));
         }
 
         if (loadingData) {
@@ -118,7 +119,7 @@ function Contracts() {
 
     return (
         <div>
-            <div className="text-2xl pb-6 flex items-center space-x-3"><BsClipboardCheck /><p>Contracts</p></div>
+            <div role="heading" className="text-2xl pb-6 flex items-center space-x-3"><BsClipboardCheck /><p>Contracts</p></div>
             {createContractOpen ? <CreateContract onCancel={onCancelCreateDialog} onCreate={onCreateContract} /> : ""}
             <div className="submenu">
                 <button className="button-border" onClick={() => setCreateContractOpen(true)}><BsPlus size={20} /><span>Create</span></button>

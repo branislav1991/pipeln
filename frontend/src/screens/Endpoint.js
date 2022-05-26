@@ -33,7 +33,7 @@ function Endpoint() {
 
     return (
         <div>
-            <div className="text-2xl pb-6 flex items-center space-x-3"><BsPlug /><p>Endpoint</p></div>
+            <div role="heading" className="text-2xl pb-6 flex items-center space-x-3"><BsPlug /><p>Endpoint</p></div>
             <div className="submenu">
                 <button className="button-border" onClick={() => setLoadingData(true)}><BsArrowClockwise size={20} /><span>Refresh</span></button>
                 <button className="button-border"><BsTrash size={20} /><span>Delete</span></button>
@@ -41,7 +41,7 @@ function Endpoint() {
             <div className="subcontent">
                 {
                     loadingData ?
-                        <p>Loading...</p> :
+                        <p data-testid="loading-indicator">Loading...</p> :
                         <div>
                             <BsPlug />
                             <p>Type: {endpoint["type"]}</p>

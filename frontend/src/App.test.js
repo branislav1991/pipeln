@@ -1,10 +1,14 @@
 /* Copyright (c) 2022 Branislav Hollaender. All rights reserved. */
 
-import { render, screen, within } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
-import { AppRoutes } from './App';
-import 'jest-canvas-mock';
+import { render, screen } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
+import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
+import { AppRoutes } from './App'
+
+beforeEach(() => {
+    fetch.resetMocks()
+})
 
 test("Root path shows dashboard", () => {
     render(
@@ -12,39 +16,35 @@ test("Root path shows dashboard", () => {
             <AppRoutes />
         </MemoryRouter>);
 
-    const headerTitle = screen.getByText("Dashboard");
-    expect(headerTitle).toBeInTheDocument();
+    // Dashboard should appear twice in sidebar and once in main content
+    expect(screen.getAllByText("Dashboard").length).toEqual(3);
 });
 
-test("Clicking on home should navigate to dashboard", () => {
+test("Clicking on dashboard should navigate to dashboard", async () => {
+    const user = userEvent.setup();
+
     render(
         <MemoryRouter>
             <AppRoutes />
         </MemoryRouter>);
 
-    act(() => {
-        const homeLink = screen.getByText("Home");
-        homeLink.dispatchEvent(new MouseEvent("click"));
-    });
+    const dashboardLink = screen.getByRole("link", { name: /Dashboard */i })
+    await user.click(dashboardLink);
 
-    expect(screen.getByText("Dashboard")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Dashboard/i })).toBeInTheDocument();
 });
 
-test("Clicking on contracts should navigate to contracts page", () => {
-    const { container } = render(
+test("Clicking on contracts should navigate to contracts page", async () => {
+    const user = userEvent.setup();
+    fetch.mockResponseOnce(JSON.stringify([]));
+
+    render(
         <MemoryRouter>
             <AppRoutes />
         </MemoryRouter>);
 
-    const homeLink = screen.getByText("Home");
-    const sidebar = homeLink.closest("aside");
-    const contractsLink = within(sidebar).getByText("Contracts");
+    const contractsLink = screen.getByRole("link", { name: /Contracts */i })
+    await user.click(contractsLink);
 
-    act(() => {
-        contractsLink.dispatchEvent(new MouseEvent("click"));
-    });
-
-    const contentWrapper = container.getElementsByClassName("content")[0];
-    const contractsTitle = within(contentWrapper).getByText("Contracts");
-    expect(contractsTitle).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Contracts/i })).toBeInTheDocument();
 });
