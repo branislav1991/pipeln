@@ -115,7 +115,7 @@ const EndpointsListBox = ({ endpoints, className, selected, setSelected }) => {
     return (
         endpoints ?
             (
-                <div className={className}>
+                <div className={className} role="listbox">
                     <Listbox value={selected} onChange={setSelected}>
                         <Listbox.Button className="relative flex items-center w-full cursor-pointer rounded-lg py-2 pl-3 pr-10 text-left border border-gray-300 text-gray-700 text-sm">
                             <span className={`mr-2 ${selected ? "" : "hidden"} ${selected && selected["active"] ? "text-green-500" : "text-red-500"}`}><BsCircleFill className="w-4 h-auto" /></span>
@@ -175,40 +175,42 @@ function ReceiversCombobox({ receivers, onSelected }) {
     return (
         receivers ?
             (
-                <Combobox value={selected} onChange={setSelected}>
-                    <div className="relative w-full bg-white border border-gray-300 rounded-lg overflow-hidden focus:outline-none">
-                        <Combobox.Input
-                            className="relative w-full outline-none cursor-default py-2 pl-3 pr-10 text-left text-gray-700 text-sm"
-                            onChange={event => setQuery(event.target.value)}
-                            displayValue={rcv => rcv ? rcv["username"] : ""}
-                        />
-                        <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                            <BsChevronExpand
-                                className="h-5 w-5 text-gray-400"
-                                aria-hidden="true"
+                <div role="combobox">
+                    <Combobox value={selected} onChange={setSelected}>
+                        <div className="relative w-full bg-white border border-gray-300 rounded-lg overflow-hidden focus:outline-none">
+                            <Combobox.Input
+                                className="relative w-full outline-none cursor-default py-2 pl-3 pr-10 text-left text-gray-700 text-sm"
+                                onChange={event => setQuery(event.target.value)}
+                                displayValue={rcv => rcv ? rcv["username"] : ""}
                             />
-                        </Combobox.Button>
-                    </div>
-                    <div className="relative w-full">
-                        <Combobox.Options className="absolute width-full z-10 mt-1 max-h-60 w-full rounded-md bg-white py-1 text-sm border border-gray-300">
-                            {filtered.length === 0 && query !== "" ? (
-                                <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                                    Nothing found.
-                                </div>
-                            ) : (
-                                filtered.map(rcv => (
-                                    <Combobox.Option
-                                        key={rcv["id"]}
-                                        value={rcv}
-                                        className={({ active }) => `relative items-center flex space-x-2 cursor-default select-none py-2 pl-4 pr-4 ${active ? "bg-blue-600 text-white" : "bg-white text-gray-700"}`}
-                                    >
-                                        {rcv["username"]}
-                                    </Combobox.Option>
-                                ))
-                            )}
-                        </Combobox.Options>
-                    </div>
-                </Combobox >
+                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                                <BsChevronExpand
+                                    className="h-5 w-5 text-gray-400"
+                                    aria-hidden="true"
+                                />
+                            </Combobox.Button>
+                        </div>
+                        <div className="relative w-full">
+                            <Combobox.Options className="absolute width-full z-10 mt-1 max-h-60 w-full rounded-md bg-white py-1 text-sm border border-gray-300">
+                                {filtered.length === 0 && query !== "" ? (
+                                    <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                                        Nothing found.
+                                    </div>
+                                ) : (
+                                    filtered.map(rcv => (
+                                        <Combobox.Option
+                                            key={rcv["id"]}
+                                            value={rcv}
+                                            className={({ active }) => `relative items-center flex space-x-2 cursor-default select-none py-2 pl-4 pr-4 ${active ? "bg-blue-600 text-white" : "bg-white text-gray-700"}`}
+                                        >
+                                            {rcv["username"]}
+                                        </Combobox.Option>
+                                    ))
+                                )}
+                            </Combobox.Options>
+                        </div>
+                    </Combobox >
+                </div>
             ) :
             (
                 <p>Loading...</p>

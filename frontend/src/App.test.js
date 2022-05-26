@@ -1,7 +1,6 @@
 /* Copyright (c) 2022 Branislav Hollaender. All rights reserved. */
 
 import { render, screen } from '@testing-library/react'
-import { act } from 'react-dom/test-utils'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { AppRoutes } from './App'
