@@ -97,7 +97,7 @@ const TimeWrapper = ({ initTime, onChange }) => {
 
     return (
         <>
-            <label htmlFor="timeoutLbl" className="text-gray-700 text-sm font-medium mr-2">Reponse timeout (hh:mm): </label>
+            <label htmlFor="timeoutLbl" className="text-gray-700 text-sm font-medium mr-2">Response timeout (hh:mm): </label>
             <TimeInput
                 name="timeoutLbl"
                 initTime={initTime}
@@ -132,6 +132,7 @@ const EndpointsListBox = ({ endpoints, className, selected, setSelected }) => {
                                 {endpoints.map((ep) => (
                                     <Listbox.Option
                                         key={ep["id"]}
+                                        role="option"
                                         value={ep}
                                         className={({ active }) => `relative items-center flex space-x-2 cursor-default select-none py-2 pl-4 pr-4 ${active ? "bg-blue-600 text-white" : "text-gray-700"}`}>
                                         <span><BsCircleFill className={`w-4 h-auto ${ep["active"] ? "text-green-500" : "text-red-500"}`} /></span>
@@ -175,7 +176,7 @@ function ReceiversCombobox({ receivers, onSelected }) {
     return (
         receivers ?
             (
-                <div role="combobox">
+                <div>
                     <Combobox value={selected} onChange={setSelected}>
                         <div className="relative w-full bg-white border border-gray-300 rounded-lg overflow-hidden focus:outline-none">
                             <Combobox.Input
@@ -201,6 +202,7 @@ function ReceiversCombobox({ receivers, onSelected }) {
                                         <Combobox.Option
                                             key={rcv["id"]}
                                             value={rcv}
+                                            role="option"
                                             className={({ active }) => `relative items-center flex space-x-2 cursor-default select-none py-2 pl-4 pr-4 ${active ? "bg-blue-600 text-white" : "bg-white text-gray-700"}`}
                                         >
                                             {rcv["username"]}
@@ -355,10 +357,14 @@ function CreateContract({ onCreate, onCancel }) {
                         "title": "Receiver",
                         "content":
                             <>
-                                <p className="mb-1 text-gray-700">Select Receiver: </p>
-                                <ReceiversCombobox receivers={receivers} onSelected={onReceiverSelected} />
-                                <p className={`mt-4 mb-1 text-gray-700 ${receiver ? "" : "hidden"}`}>Select Remote Endpoint: </p>
-                                <EndpointsListBox endpoints={remoteEndpoints} selected={remoteSelectedEndpoint} setSelected={setRemoteSelectedEndpoint} className={`${receiver ? "" : "hidden"}`} />
+                                <label>
+                                    <div className="mb-1 text-gray-700">Select Receiver:</div>
+                                    <ReceiversCombobox id="create-contract-receivers" receivers={receivers} onSelected={onReceiverSelected} />
+                                </label>
+                                <label className={`${receiver ? "" : "hidden"}`}>
+                                    <div className="mt-4 mb-1 text-gray-700">Select Remote Endpoint:</div>
+                                    <EndpointsListBox id="create-contract-remote-endpoints" endpoints={remoteEndpoints} selected={remoteSelectedEndpoint} setSelected={setRemoteSelectedEndpoint} />
+                                </label>
                             </>
                     },
                     {
@@ -373,8 +379,8 @@ function CreateContract({ onCreate, onCancel }) {
                         "title": "Additional Settings",
                         "content": (
                             <div className="grid grid-cols-3 gap-4 items-center">
-                                <label htmlFor="contractName" className="text-gray-700 text-sm font-medium">Name: </label>
-                                <input name="name" type="text" className="col-span-2 appearance-none border border-gray-300 focus:outline-none focus:border-blue-600 rounded px-2 py-2 text-gray-700" value={name} onChange={val => setName(val.target.value)} />
+                                <label htmlFor="name" className="text-gray-700 text-sm font-medium">Name:</label>
+                                <input id="name" name="name" type="text" className="col-span-2 appearance-none border border-gray-300 focus:outline-none focus:border-blue-600 rounded px-2 py-2 text-gray-700" value={name} onChange={val => setName(val.target.value)} />
                                 <TimeWrapper initTime={fromSeconds(timeout)} onChange={val => setTimeout(toSeconds(val))} />
                             </div>
                         )
