@@ -95,6 +95,9 @@ function Contracts() {
                 console.error(error);
             }
             setDeletingData(false);
+
+            // Reload data
+            setLoadingData(true);
         }
 
         if (deletingData) {
