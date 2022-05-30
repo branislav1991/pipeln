@@ -240,12 +240,14 @@ function CreateContract({ onCreate, onCancel }) {
     // Load my endpoints
     useEffect(() => {
         async function getMyEndpoints() {
-            await getEndpointsForUser(fakeUserId)
-                .then(endpoints => {
-                    setLoadingMyEndpoints(false);
-                    setMyEndpoints(endpoints);
-                })
-                .catch(error => console.error(error));
+            try {
+                const endpoints = await getEndpointsForUser(fakeUserId);
+                setMyEndpoints(endpoints);
+                setLoadingMyEndpoints(false);
+            }
+            catch (error) {
+                console.error(error);
+            }
         }
 
         if (loadingMyEndpoints) {
@@ -256,25 +258,25 @@ function CreateContract({ onCreate, onCancel }) {
     // Load receivers (connected users)
     useEffect(() => {
         async function getReceivers() {
-            await getUser(fakeUserId)
-                .then(user => {
-                    // Get connections for the user
-                    setLoadingReceivers(false);
-                    const connections = user["connections"];
+            try {
+                const user = await getUser(fakeUserId);
+                // Get connections for the user
+                const connections = user["connections"];
 
-                    // Get all users in connections
-                    const users = connections.map(async c => {
-                        const user = await getUser(c);
-                        return user;
-                    });
+                // Get all users in connections
+                const userPromises = connections.map(async remoteUserId => {
+                    const remoteUser = await getUser(remoteUserId);
+                    return remoteUser;
+                });
 
-                    return Promise.allSettled(users);
-                })
-                .then(users => {
-                    users = users.filter(val => val["status"] === "fulfilled").map(val => val["value"]);
-                    setReceivers(users);
-                })
-                .catch(error => console.error(error));
+                let users = await Promise.allSettled(userPromises);
+                users = users.filter(val => val["status"] === "fulfilled").map(val => val["value"]);
+                setReceivers(users);
+                setLoadingReceivers(false);
+            }
+            catch (error) {
+                console.error(error);
+            }
         }
 
         if (loadingReceivers) {
@@ -285,12 +287,13 @@ function CreateContract({ onCreate, onCancel }) {
     // Load remote endpoints when receiver is selected
     useEffect(() => {
         async function getRemoteEndpoints(id) {
-            await getEndpointsForUser(id)
-                .then(endpoints => {
-                    setLoadingRemoteEndpoints(false);
-                    setRemoteEndpoints(endpoints);
-                })
-                .catch(error => console.error(error));
+            try {
+                const endpoints = await getEndpointsForUser(id);
+                setLoadingRemoteEndpoints(false);
+                setRemoteEndpoints(endpoints);
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         if (loadingRemoteEndpoints && receiver) {
@@ -316,27 +319,34 @@ function CreateContract({ onCreate, onCancel }) {
         setFormErrors(newErrors);
     }, [mySelectedEndpoint, remoteSelectedEndpoint, name]);
 
-    const onSubmit = (event) => {
+    const onSubmit = async event => {
         if (formErrors.length) {
             return;
         }
 
-        createContract({
-            name: name,
-            verificationMethod: verificationMethod["value"],
-            authenticationMethod: authenticationMethod["value"],
-            endpoints: [mySelectedEndpoint["id"],
-            remoteSelectedEndpoint["id"]],
-            status: "initialized",
-            timeout: timeout
-        })
-            .then(onCreate())
-            .catch(error => console.log(error));
+        try {
+            await createContract({
+                name: name,
+                verificationMethod: verificationMethod["value"],
+                authenticationMethod: authenticationMethod["value"],
+                endpoints: [mySelectedEndpoint["id"],
+                remoteSelectedEndpoint["id"]],
+                status: "initialized",
+                timeout: timeout
+            })
+            onCreate();
+        }
+        catch (error) {
+            console.error(error);
+        }
+
         event.preventDefault();
     }
 
     const onReceiverSelected = useCallback(
         user => {
+            setRemoteSelectedEndpoint(null);
+            setRemoteEndpoints(null);
             setReceiver(user);
             setLoadingRemoteEndpoints(true);
         }, []

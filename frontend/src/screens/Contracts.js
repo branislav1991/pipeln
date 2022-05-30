@@ -51,36 +51,34 @@ function Contracts() {
     // Fetching data at load time
     useEffect(() => {
         async function getData() {
-            getContracts()
-                .then(contracts => {
-                    const remoteEps = contracts.map(async c => {
-                        const remoteEp = await getEndpoint(c["remoteEndpoint"]);
-                        return { "endpoint": remoteEp["address"] };
-                    });
+            try {
+                const contracts = await getContracts();
+                const remoteEps = contracts.map(async c => {
+                    const remoteEp = await getEndpoint(c["remoteEndpoint"]);
+                    return { "endpoint": remoteEp["address"] };
+                });
 
-                    const myEps = contracts.map(async c => {
-                        const myEp = await getEndpoint(c["myEndpoint"]);
-                        return { "endpoint": myEp["address"] };
-                    });
+                const myEps = contracts.map(async c => {
+                    const myEp = await getEndpoint(c["myEndpoint"]);
+                    return { "endpoint": myEp["address"] };
+                });
 
-                    Promise.allSettled(remoteEps)
-                        .then(endpoints => {
-                            endpoints.forEach((e, idx) => {
-                                contracts[idx]["remoteEndpoint"] = e["status"] === "fulfilled" ? e["value"]["endpoint"] : "<error>";
-                            });
+                const remoteEndpoints = await Promise.allSettled(remoteEps);
+                remoteEndpoints.forEach((e, idx) => {
+                    contracts[idx]["remoteEndpoint"] = e["status"] === "fulfilled" ? e["value"]["endpoint"] : "<error>";
+                });
 
-                            return Promise.allSettled(myEps);
-                        })
-                        .then(endpoints => {
-                            endpoints.forEach((e, idx) => {
-                                contracts[idx]["myEndpoint"] = e["status"] === "fulfilled" ? e["value"]["endpoint"] : "<error>";
-                            });
+                const myEndpoints = await Promise.allSettled(myEps);
+                myEndpoints.forEach((e, idx) => {
+                    contracts[idx]["myEndpoint"] = e["status"] === "fulfilled" ? e["value"]["endpoint"] : "<error>";
+                });
 
-                            setData(contracts);
-                            setLoadingData(false);
-                        });
-                })
-                .catch(error => console.error(error));
+                setData(contracts);
+                setLoadingData(false);
+            } catch (error) {
+                console.error(error);
+            }
+
         }
 
         if (loadingData) {
@@ -91,12 +89,12 @@ function Contracts() {
     // Deleting data
     useEffect(() => {
         async function deleteData(ids) {
-            await deleteContracts(ids)
-                .then(() => {
-                    setDeletingData(false);
-                    setData(data.filter(c => !ids.includes(c["id"])));
-                })
-                .catch(error => console.error(error));
+            try {
+                await deleteContracts(ids);
+            } catch (error) {
+                console.error(error);
+            }
+            setDeletingData(false);
         }
 
         if (deletingData) {
@@ -119,7 +117,7 @@ function Contracts() {
 
     return (
         <div>
-            <div role="heading" className="text-2xl pb-6 flex items-center space-x-3"><BsClipboardCheck /><p>Contracts</p></div>
+            <div role="heading" aria-level="1" className="text-2xl pb-6 flex items-center space-x-3"><BsClipboardCheck /><p>Contracts</p></div>
             {createContractOpen ? <CreateContract onCancel={onCancelCreateDialog} onCreate={onCreateContract} /> : ""}
             <div className="submenu">
                 <button className="button-border" onClick={() => setCreateContractOpen(true)}><BsPlus size={20} /><span>Create</span></button>
