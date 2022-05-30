@@ -128,8 +128,8 @@ test("Selecting remote user should show endpoints for that user; create button s
 
     const myEndpointsListBox = screen.getByText("Select Endpoint");
 
-    const usersComboBox = screen.getByRole("combobox");
-    await user.type(usersComboBox, "@jackwelch");
+    const receiversComboBox = screen.getByRole("combobox", { name: /Select receiver/i });
+    await user.type(receiversComboBox, "@jackwelch");
     const remoteUserOption = screen.getByRole("option", { name: "@jackwelch" });
     await user.click(remoteUserOption);
 

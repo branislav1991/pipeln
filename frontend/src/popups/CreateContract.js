@@ -111,12 +111,13 @@ const TimeWrapper = ({ initTime, onChange }) => {
     );
 }
 
-const EndpointsListBox = ({ endpoints, className, selected, setSelected }) => {
+const EndpointsListBox = ({ endpoints, className, selected, setSelected, label = "" }) => {
     return (
         endpoints ?
             (
                 <div className={className} role="listbox">
                     <Listbox value={selected} onChange={setSelected}>
+                        <Listbox.Label className={`block mb-1 text-gray-700 ${label ? "" : "hidden"}`}>{label}</Listbox.Label>
                         <Listbox.Button className="relative flex items-center w-full cursor-pointer rounded-lg py-2 pl-3 pr-10 text-left border border-gray-300 text-gray-700 text-sm">
                             <span className={`mr-2 ${selected ? "" : "hidden"} ${selected && selected["active"] ? "text-green-500" : "text-red-500"}`}><BsCircleFill className="w-4 h-auto" /></span>
                             <span className="truncate">{selected ? selected["address"] : "Select Endpoint"}</span>
@@ -155,7 +156,7 @@ const EndpointsListBox = ({ endpoints, className, selected, setSelected }) => {
     )
 }
 
-function ReceiversCombobox({ receivers, onSelected }) {
+function ReceiversCombobox({ receivers, onSelected, label = "" }) {
     const [selected, setSelected] = useState()
     const [query, setQuery] = useState("")
 
@@ -178,6 +179,7 @@ function ReceiversCombobox({ receivers, onSelected }) {
             (
                 <div>
                     <Combobox value={selected} onChange={setSelected}>
+                        <Combobox.Label className={`block mb-1 text-gray-700 ${label ? "" : "hidden"}`}>{label}</Combobox.Label>
                         <div className="relative w-full bg-white border border-gray-300 rounded-lg overflow-hidden focus:outline-none">
                             <Combobox.Input
                                 className="relative w-full outline-none cursor-default py-2 pl-3 pr-10 text-left text-gray-700 text-sm"
@@ -367,14 +369,8 @@ function CreateContract({ onCreate, onCancel }) {
                         "title": "Receiver",
                         "content":
                             <>
-                                <label>
-                                    <div className="mb-1 text-gray-700">Select Receiver:</div>
-                                    <ReceiversCombobox id="create-contract-receivers" receivers={receivers} onSelected={onReceiverSelected} />
-                                </label>
-                                <label className={`${receiver ? "" : "hidden"}`}>
-                                    <div className="mt-4 mb-1 text-gray-700">Select Remote Endpoint:</div>
-                                    <EndpointsListBox id="create-contract-remote-endpoints" endpoints={remoteEndpoints} selected={remoteSelectedEndpoint} setSelected={setRemoteSelectedEndpoint} />
-                                </label>
+                                <ReceiversCombobox receivers={receivers} onSelected={onReceiverSelected} label="Select Receiver:" />
+                                <EndpointsListBox label="Select Remote Endpoint:" endpoints={remoteEndpoints} selected={remoteSelectedEndpoint} setSelected={setRemoteSelectedEndpoint} className={`mt-4 ${receiver ? "" : "hidden"}`} />
                             </>
                     },
                     {
